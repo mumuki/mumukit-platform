@@ -20,6 +20,7 @@ module Mumukit::Platform
       config.office_url = ENV['MUMUKI_OFFICE_URL'] || "http://office.#{domain}"
       config.classroom_url = ENV['MUMUKI_CLASSROOM_URL'] || "http://classroom.#{domain}"
       config.classroom_api_url = ENV['MUMUKI_CLASSROOM_API_URL'] || "http://classroom-api.#{domain}"
+      config.organization_mapping = Mumukit::Platform::OrganizationMapping.from_env
     end
   end
 
@@ -37,8 +38,12 @@ module Mumukit::Platform
 end
 
 require_relative './platform/application'
+require_relative './platform/organization_mapping'
+require_relative './platform/web_framework'
 require_relative './platform/with_applications'
+require_relative './platform/with_organization_mappings'
 
 module Mumukit::Platform
   extend Mumukit::Platform::WithApplications
+  extend Mumukit::Platform::WithOrganizationMappings
 end
