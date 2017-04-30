@@ -1,7 +1,6 @@
 module Mumukit::Platform::WithApplications
-  def application
-    config.application
-  end
+  delegate :application, to: :config
+  delegate :url_for, :organic_url_for, to: :application
 
   def laboratory
     Mumukit::Platform::Application::Organic.new config.laboratory_url

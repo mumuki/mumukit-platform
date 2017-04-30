@@ -13,6 +13,6 @@ RSpec.configure do |config|
 end
 
 
-Mumukit::Platform.configure do |_config|
-
+Mumukit::Platform.configure do |config|
+  config.application = Mumukit::Platform::Application::Organic.new 'http://sample.app.com'
 end
