@@ -15,8 +15,8 @@ module Mumukit::Platform::OrganizationMapping
       native.instance_eval(&block)
     end
 
-    def self.organization_name(request)
-      request.first_subdomain_after(Mumukit::Platform.application.domain) || 'central'
+    def self.organization_name(request, domain)
+      request.first_subdomain_after(domain) || 'central'
     end
   end
 
@@ -25,7 +25,7 @@ module Mumukit::Platform::OrganizationMapping
       framework.configure_tenant_path_routes! native, &block
     end
 
-    def self.organization_name(request)
+    def self.organization_name(request, _domain)
       request.path.split('/')[1]
     end
   end
