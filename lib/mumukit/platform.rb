@@ -1,3 +1,5 @@
+require 'mumukit/core'
+
 require_relative './platform/version'
 require_relative './platform/uri'
 
