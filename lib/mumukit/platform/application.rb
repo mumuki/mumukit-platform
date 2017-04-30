@@ -38,8 +38,13 @@ class Mumukit::Platform::Application
   end
 
   class Organic < Mumukit::Platform::Application
+    def initialize(url, organization_mapping)
+      super(url)
+      @organization_mapping = organization_mapping
+    end
+
     def organic_uri(organization)
-      uri.subdominate(organization)
+      @organization_mapping.organic_uri(uri, organization)
     end
   end
 end

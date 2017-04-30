@@ -9,5 +9,16 @@ describe Mumukit::Platform::Application do
   it { expect(Mumukit::Platform.url_for '/bar').to eq 'http://sample.app.com/bar' }
   it { expect(Mumukit::Platform.organic_url_for 'orga', '/bar').to eq 'http://orga.sample.app.com/bar' }
 
-  it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000').organic_url('bar')).to eq 'http://bar.foo.com:3000' }
+  describe Mumukit::Platform::Application::Basic do
+    context 'with subdomain mapping strategy' do
+      let(:mapping) { Mumukit::Platform::OrganizationMapping::Subdomain }
+      it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000', mapping).organic_url('bar')).to eq 'http://bar.foo.com:3000' }
+    end
+
+    context 'with subdomain mapping strategy' do
+      let(:mapping) { Mumukit::Platform::OrganizationMapping::Path }
+      it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000', mapping).organic_url('bar')).to eq 'http://foo.com:3000/bar/' }
+      it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/foo', mapping).organic_url('bar')).to eq 'http://foo.com:3000/bar/foo' }
+    end
+  end
 end

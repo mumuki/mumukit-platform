@@ -12,6 +12,19 @@ class URI::HTTP
                     port: port)
   end
 
+  def subroute(route)
+    if path.start_with? '/'
+      new_path = "/#{route}#{path}"
+    else
+      new_path = "/#{route}/#{path}"
+    end
+    URI::HTTP.build(scheme: scheme,
+                    host: host,
+                    path: new_path,
+                    query: query,
+                    port: port)
+  end
+
   def url_for(path)
     URI.join(self, path).to_s
   end

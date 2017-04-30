@@ -18,6 +18,10 @@ module Mumukit::Platform::OrganizationMapping
     def self.organization_name(request, domain)
       request.first_subdomain_after(domain) || 'central'
     end
+
+    def self.organic_uri(uri, organization)
+      uri.subdominate(organization)
+    end
   end
 
   module Path
@@ -27,6 +31,10 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.organization_name(request, _domain)
       request.path.split('/')[1]
+    end
+
+    def self.organic_uri(uri, organization)
+      uri.subroute(organization)
     end
   end
 end

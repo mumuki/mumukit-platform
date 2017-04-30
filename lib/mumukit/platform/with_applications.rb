@@ -3,15 +3,15 @@ module Mumukit::Platform::WithApplications
   delegate :url_for, :organic_url_for, to: :application
 
   def laboratory
-    Mumukit::Platform::Application::Organic.new config.laboratory_url
+    Mumukit::Platform::Application::Organic.new config.laboratory_url, organization_mapping
   end
 
   def classroom
-    Mumukit::Platform::Application::Organic.new config.classroom_url
+    Mumukit::Platform::Application::Organic.new config.classroom_url, organization_mapping
   end
 
   def classroom_api
-    Mumukit::Platform::Application::Organic.new config.classroom_api_url
+    Mumukit::Platform::Application::Organic.new config.classroom_api_url, organization_mapping
   end
 
   def office
