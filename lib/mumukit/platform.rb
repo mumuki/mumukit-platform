@@ -41,9 +41,9 @@ require_relative './platform/application'
 require_relative './platform/organization_mapping'
 require_relative './platform/web_framework'
 require_relative './platform/with_applications'
-require_relative './platform/with_organization_mappings'
+require_relative './platform/with_organization_mapping'
 
 module Mumukit::Platform
   extend Mumukit::Platform::WithApplications
-  extend Mumukit::Platform::WithOrganizationMappings
+  extend Mumukit::Platform::WithOrganizationMapping
 end

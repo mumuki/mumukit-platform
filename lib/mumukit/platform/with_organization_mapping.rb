@@ -1,4 +1,4 @@
-module Mumukit::Platform::WithOrganizationMappings
+module Mumukit::Platform::WithOrganizationMapping
   delegate :organization_mapping, to: :config
 
   def organization_name(request)
