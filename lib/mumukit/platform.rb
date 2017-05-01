@@ -11,7 +11,7 @@ module Mumukit::Platform
 
   def self.defaults
     struct.tap do |config|
-      domain = platform_domain_from_env
+      domain = Mumukit::Platform::Domain.from_env
 
       config.laboratory_url = ENV['MUMUKI_LABORATORY_URL'] || "http://#{domain}"
       config.thesaurus_url = ENV['MUMUKI_THESAURUS_URL'] || "http://thesaurus.#{domain}"
@@ -24,21 +24,14 @@ module Mumukit::Platform
     end
   end
 
-  def self.platform_domain_from_env
-    if ENV['RACK_ENV'] == 'test' || ENV['RAILS_ENV'] == 'test'
-      'localmumuki.io'
-    else
-      ENV['MUMUKI_PLATFORM_DOMAIN'] || 'mumuki.io'
-    end
-  end
-
   def self.config
     @config
   end
 end
 
-require_relative './platform/application'
+require_relative './platform/domain'
 require_relative './platform/organization_mapping'
+require_relative './platform/application'
 require_relative './platform/web_framework'
 require_relative './platform/with_applications'
 require_relative './platform/with_organization_mapping'
