@@ -1,7 +1,15 @@
 module Mumukit::Platform::OrganizationMapping
   def self.from_env
-    mapping = ENV['MUMUKI_ORGANIZATION_MAPPING']&.strip
-    if ENV['RACK_ENV'] == 'test' || ENV['RAILS_ENV'] == 'test' || mapping.blank? || mapping == 'subdomain'
+    if ENV['RACK_ENV'] == 'test' || ENV['RAILS_ENV'] == 'test'
+      Subdomain
+    else
+      parse ENV['MUMUKI_ORGANIZATION_MAPPING']
+    end
+  end
+
+  def self.parse(name)
+    mapping = name.try { |it| it.strip.downcase }
+    if mapping.blank? || mapping == 'subdomain'
       Subdomain
     elsif mapping == 'path'
       Path

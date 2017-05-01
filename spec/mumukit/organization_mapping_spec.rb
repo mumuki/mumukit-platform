@@ -2,8 +2,17 @@ require_relative '../spec_helper'
 
 describe Mumukit::Platform::OrganizationMapping do
 
+  describe '.parse' do
+    it { expect(Mumukit::Platform::OrganizationMapping.parse('subdomain')).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
+    it { expect(Mumukit::Platform::OrganizationMapping.parse('')).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
+    it { expect(Mumukit::Platform::OrganizationMapping.parse('path')).to eq Mumukit::Platform::OrganizationMapping::Path }
+    it { expect(Mumukit::Platform::OrganizationMapping.parse('PATH')).to eq Mumukit::Platform::OrganizationMapping::Path }
+    it { expect { Mumukit::Platform::OrganizationMapping.parse('foo') }.to raise_error }
+  end
+
   context 'with test defaults - http://`subdomain`.sample.app.com' do
     let(:request) { new_rack_request 'http', 'foo.sample.app.com' }
+
     it { expect(Mumukit::Platform::OrganizationMapping.from_env).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
     it { expect(Mumukit::Platform.organization_name(request)).to eq 'foo' }
   end
