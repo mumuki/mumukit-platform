@@ -33,10 +33,13 @@ require_relative './platform/domain'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
 require_relative './platform/web_framework'
+
 require_relative './platform/with_applications'
 require_relative './platform/with_organization_mapping'
+require_relative './platform/with_web_framework'
 
 module Mumukit::Platform
   extend Mumukit::Platform::WithApplications
   extend Mumukit::Platform::WithOrganizationMapping
+  extend Mumukit::Platform::WithWebFramework
 end

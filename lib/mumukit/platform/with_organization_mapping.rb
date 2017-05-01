@@ -6,6 +6,6 @@ module Mumukit::Platform::WithOrganizationMapping
   end
 
   def map_organization_routes!(native_mapper, &block)
-    organization_mapping.map_organization_routes!(native_mapper, config.web_framework, &block)
+    organization_mapping.map_organization_routes!(native_mapper, web_framework, &block)
   end
 end
