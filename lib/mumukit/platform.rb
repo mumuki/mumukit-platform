@@ -30,6 +30,7 @@ module Mumukit::Platform
 end
 
 require_relative './platform/domain'
+require_relative './platform/organization'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
 require_relative './platform/web_framework'
