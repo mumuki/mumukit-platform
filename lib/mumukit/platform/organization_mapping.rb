@@ -19,6 +19,10 @@ module Mumukit::Platform::OrganizationMapping
   end
 
   module Subdomain
+    def self.implicit_organization?(request, domain)
+      request.empty_subdomain_after?(domain)
+    end
+
     def self.map_organization_routes!(native, _framework, &block)
       native.instance_eval(&block)
     end
@@ -33,6 +37,10 @@ module Mumukit::Platform::OrganizationMapping
   end
 
   module Path
+    def self.implicit_organization?(_request, _domain)
+      false
+    end
+
     def self.map_organization_routes!(native, framework, &block)
       framework.configure_tenant_path_routes! native, &block
     end

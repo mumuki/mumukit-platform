@@ -15,6 +15,7 @@ describe Mumukit::Platform::OrganizationMapping do
 
     it { expect(Mumukit::Platform::OrganizationMapping.from_env).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
     it { expect(Mumukit::Platform.organization_name(request)).to eq 'foo' }
+    it { expect(Mumukit::Platform.implicit_organization?(request)).to be false }
   end
 
   describe Mumukit::Platform::OrganizationMapping::Subdomain do
@@ -28,11 +29,13 @@ describe Mumukit::Platform::OrganizationMapping do
     context 'on explicit central' do
       let(:request) { new_rack_request 'http', 'central.something.com' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'central' }
+      it { expect(subject.implicit_organization?(request, 'something.com')).to be false }
     end
 
     context 'on implicit central' do
       let(:request) { new_rack_request 'http', 'something.com' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'central' }
+      it { expect(subject.implicit_organization?(request, 'something.com')).to be true }
     end
   end
 
