@@ -5,7 +5,7 @@ class URI::HTTP
     else
       new_host = "#{subdomain}.#{host}"
     end
-    URI::HTTP.build(scheme: scheme,
+    self.class.build(scheme: scheme,
                     host: new_host,
                     path: path,
                     query: query,
@@ -18,7 +18,7 @@ class URI::HTTP
     else
       new_path = "/#{route}/#{path}"
     end
-    URI::HTTP.build(scheme: scheme,
+    self.class.build(scheme: scheme,
                     host: host,
                     path: new_path,
                     query: query,
