@@ -4,7 +4,7 @@ class Mumukit::Platform::Model
   include ActiveModel::Model
 
   def self.model_attr_accessor(*keys)
-    attr_accessor *keys
+    attr_accessor(*keys)
     define_singleton_method :parse do |json|
       new json.slice(*keys)
     end
