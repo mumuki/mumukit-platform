@@ -91,6 +91,8 @@ describe Mumukit::Platform::Organization do
     end
     describe 'defaults' do
       it { expect(organization.private?).to be true }
+      it { expect(organization.logo_url).to eq 'https://mumuki.io/logo-alt-large.png' }
+      it { expect(organization.login_methods).to eq ['user_pass'] }
     end
     describe '#url_for' do
       it { expect(organization.url_for 'zaraza').to eq 'http://orga.sample.app.com/zaraza' }

@@ -26,7 +26,7 @@ module Mumukit::Platform::Organization::Helpers
              :terms_of_service,
              :terms_of_service=,
              :contact_email,
-             :contact_email=, to: :community
+             :contact_email=, to: :profile
 
   end
 

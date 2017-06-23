@@ -14,4 +14,8 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
   def locale_json
     LOCALES[locale].to_json
   end
+
+  def logo_url
+    @logo_url ||= 'https://mumuki.io/logo-alt-large.png'
+  end
 end
