@@ -4,9 +4,9 @@ describe Mumukit::Platform::Organization do
   let(:organization) do
     struct(
       name: 'orga',
-      community: Mumukit::Platform::Community.new,
-      settings:  Mumukit::Platform::Settings.new,
-      theme:     Mumukit::Platform::Theme.new)
+      profile:   Mumukit::Platform::Organization::Profile.new,
+      settings:  Mumukit::Platform::Organization::Settings.new,
+      theme:     Mumukit::Platform::Organization::Theme.new)
   end
 
   describe '#current' do
@@ -38,22 +38,22 @@ describe Mumukit::Platform::Organization do
         raise_hand_enabled: true,
         id: 998} }
 
-    describe Mumukit::Platform::Settings do
+    describe Mumukit::Platform::Organization::Settings do
       describe '.parse' do
-        subject { Mumukit::Platform::Settings.parse(json) }
+        subject { Mumukit::Platform::Organization::Settings.parse(json) }
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.raise_hand_enabled?).to be true }
         it { expect(subject.public?).to eq false }
       end
       describe '.load' do
-        let(:settings) { Mumukit::Platform::Settings.new(
+        let(:settings) { Mumukit::Platform::Organization::Settings.new(
                             public: true,
                             raise_hand_enabled: false,
                             login_methods: [:google]) }
-        let(:dump) { Mumukit::Platform::Settings.dump(settings) }
+        let(:dump) { Mumukit::Platform::Organization::Settings.dump(settings) }
 
-        subject { Mumukit::Platform::Settings.load(dump) }
+        subject { Mumukit::Platform::Organization::Settings.load(dump) }
 
         it { expect(subject.login_methods).to eq %w{google} }
         it { expect(subject.raise_hand_enabled?).to be false }
@@ -61,17 +61,17 @@ describe Mumukit::Platform::Organization do
       end
     end
 
-    describe Mumukit::Platform::Theme do
-      subject { Mumukit::Platform::Theme.parse(json) }
+    describe Mumukit::Platform::Organization::Theme do
+      subject { Mumukit::Platform::Organization::Theme.parse(json) }
 
-      it { expect(subject.logo_url).to eq 'http://mumuki.io/logo-alt-large.png' }
       it { expect(subject.theme_stylesheet_url).to eq 'http://mumuki.io/theme.css' }
       it { expect(subject.extension_javascript_url).to eq 'http://mumuki.io/scripts.js' }
     end
 
-    describe Mumukit::Platform::Community do
-      subject { Mumukit::Platform::Community.parse(json) }
+    describe Mumukit::Platform::Organization::Profile do
+      subject { Mumukit::Platform::Organization::Profile.parse(json) }
 
+      it { expect(subject.logo_url).to eq 'http://mumuki.io/logo-alt-large.png' }
       it { expect(subject.contact_email).to eq 'issues@mumuki.io' }
       it { expect(subject.locale).to eq 'en' }
       it { expect(subject.description).to eq 'Academy' }

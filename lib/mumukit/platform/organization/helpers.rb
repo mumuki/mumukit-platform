@@ -3,8 +3,7 @@ module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
 
   included do
-    delegate :logo_url,
-             :theme_stylesheet_url,
+    delegate :theme_stylesheet_url,
              :extension_javascript_url, to: :theme
 
     delegate :login_methods,
@@ -16,7 +15,9 @@ module Mumukit::Platform::Organization::Helpers
              :public=,
              :private?, to: :settings
 
-    delegate :locale,
+    delegate :logo_url,
+             :logo_url=,
+             :locale,
              :locale=,
              :locale_json,
              :description,
