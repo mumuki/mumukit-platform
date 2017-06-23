@@ -12,3 +12,8 @@ module Mumukit::Platform::Organization
     Thread.current[:organization] || raise('organization not selected')
   end
 end
+
+require_relative './organization/settings'
+require_relative './organization/profile'
+require_relative './organization/theme'
+require_relative './organization/helpers'
