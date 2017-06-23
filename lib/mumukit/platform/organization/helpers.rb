@@ -66,9 +66,9 @@ module Mumukit::Platform::Organization::Helpers
     def parse(json)
       json
         .slice(:name)
-        .merge(theme: Mumukit::Platform::Theme.parse(json))
-        .merge(settings: Mumukit::Platform::Settings.parse(json))
-        .merge(community: Mumukit::Platform::Community.parse(json))
+        .merge(theme: Mumukit::Platform::Organization::Theme.parse(json))
+        .merge(settings: Mumukit::Platform::Organization::Settings.parse(json))
+        .merge(profile: Mumukit::Platform::Organization::Profile.parse(json))
     end
   end
 end

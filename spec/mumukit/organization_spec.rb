@@ -8,6 +8,21 @@ describe Mumukit::Platform::Organization do
       settings:  Mumukit::Platform::Organization::Settings.new,
       theme:     Mumukit::Platform::Organization::Theme.new)
   end
+  let(:json) do
+    { name: 'test-orga',
+      contact_email: 'issues@mumuki.io',
+      books: ['a-book'],
+      locale: 'en',
+      public: false,
+      description: 'Academy',
+      login_methods: %w{facebook twitter google},
+      logo_url: 'http://mumuki.io/logo-alt-large.png',
+      terms_of_service: 'TOS',
+      theme_stylesheet_url: 'http://mumuki.io/theme.css',
+      extension_javascript_url: 'http://mumuki.io/scripts.js',
+      raise_hand_enabled: true,
+      id: 998 }
+  end
 
   describe '#current' do
     context 'when switched' do
@@ -23,21 +38,6 @@ describe Mumukit::Platform::Organization do
   end
 
   describe 'json conversion' do
-    let(:json) { {
-        name: 'test-orga',
-        contact_email: 'issues@mumuki.io',
-        books: ['a-book'],
-        locale: 'en',
-        public: false,
-        description: 'Academy',
-        login_methods: %w{facebook twitter google},
-        logo_url: 'http://mumuki.io/logo-alt-large.png',
-        terms_of_service: 'TOS',
-        theme_stylesheet_url: 'http://mumuki.io/theme.css',
-        extension_javascript_url: 'http://mumuki.io/scripts.js',
-        raise_hand_enabled: true,
-        id: 998} }
-
     describe Mumukit::Platform::Organization::Settings do
       describe '.parse' do
         subject { Mumukit::Platform::Organization::Settings.parse(json) }
@@ -81,6 +81,14 @@ describe Mumukit::Platform::Organization do
 
   describe Mumukit::Platform::Organization::Helpers do
     before { organization.singleton_class.instance_eval { include Mumukit::Platform::Organization::Helpers } }
+    let(:parsed) { organization.singleton_class.parse(json) }
+
+    describe '.parse' do
+      it { expect(parsed[:name]).to eq 'test-orga' }
+      it { expect(parsed[:theme]).to be_a Mumukit::Platform::Organization::Theme }
+      it { expect(parsed[:settings]).to be_a Mumukit::Platform::Organization::Settings }
+      it { expect(parsed[:profile]).to be_a Mumukit::Platform::Organization::Profile }
+    end
     describe 'defaults' do
       it { expect(organization.private?).to be true }
     end
