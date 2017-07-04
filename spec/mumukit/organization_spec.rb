@@ -21,6 +21,7 @@ describe Mumukit::Platform::Organization do
       theme_stylesheet_url: 'http://mumuki.io/theme.css',
       extension_javascript_url: 'http://mumuki.io/scripts.js',
       raise_hand_enabled: true,
+      feedback_suggestions_enabled: true,
       id: 998 }
   end
 
@@ -44,6 +45,7 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.raise_hand_enabled?).to be true }
+        it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
       end
       describe '.load' do
@@ -57,6 +59,7 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{google} }
         it { expect(subject.raise_hand_enabled?).to be false }
+        it { expect(subject.feedback_suggestions_enabled?).to be false }
         it { expect(subject.public?).to eq true }
       end
     end
