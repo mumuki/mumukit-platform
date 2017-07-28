@@ -9,6 +9,8 @@ module Mumukit::Platform::Organization::Helpers
     delegate :login_methods,
              :login_methods=,
              :login_settings,
+             :feedback_suggestions_enabled?,
+             :feedback_suggestions_enabled=,
              :raise_hand_enabled?,
              :raise_hand_enabled=,
              :public?,
