@@ -28,7 +28,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organization_name(request, domain)
-      request.first_subdomain_after(domain) || 'central'
+      request.subdomain_after(domain) || 'central'
     end
 
     def self.organic_uri(uri, organization)
