@@ -6,6 +6,10 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
   }.with_indifferent_access
 
   model_attr_accessor :logo_url,
+                      :banner_url,
+                      :favicon_url,
+                      :breadcrumb_image_url,
+                      :open_graph_image_url,
                       :locale,
                       :description,
                       :contact_email,
@@ -18,5 +22,17 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
 
   def logo_url
     @logo_url ||= 'https://mumuki.io/logo-alt-large.png'
+  end
+
+  def banner_url
+    @banner_url ||= logo_url
+  end
+
+  def favicon_url
+    @favicon_url ||= '/favicon.ico'
+  end
+
+  def open_graph_image_url
+    @open_graph_image_url ||= "#{Mumukit::Platform.application.url}/logo-alt.png"
   end
 end
