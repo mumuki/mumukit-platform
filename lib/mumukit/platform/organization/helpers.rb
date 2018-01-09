@@ -60,6 +60,10 @@ module Mumukit::Platform::Organization::Helpers
     Mumukit::Platform.application.organic_domain(name)
   end
 
+  def self.valid_name_regex
+    /\A([-a-z0-9_]+(\.[-a-z0-9_]+)*)?\z/
+  end
+
   module ClassMethods
     def current
       Mumukit::Platform::Organization.current
