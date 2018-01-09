@@ -2,7 +2,7 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
   LOCALES = {
     en: { facebook_code: :en_US, name: 'English' },
     es: { facebook_code: :es_LA, name: 'Español' },
-    br: { facebook_code: :pt_BR, name: 'Portugués' }
+    br: { facebook_code: :pt_BR, name: 'Português' }
   }.with_indifferent_access
 
   model_attr_accessor :logo_url,
