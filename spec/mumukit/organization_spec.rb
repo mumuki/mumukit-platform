@@ -28,7 +28,7 @@ describe Mumukit::Platform::Organization do
     { logo_url: 'http://mumuki.io/new-logo.png',
       favicon_url: 'http://mumuki.io/new-favicon.png',
       breadcrumb_image_url: 'http://mumuki.io/new-breadcrumb-image.png',
-      open_graph_image_url: 'http://mumuki.io/new-og-image.png'}
+      open_graph_image_url: 'http://mumuki.io/new-og-image.png' }
   end
 
   describe '#current' do
