@@ -25,7 +25,7 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
   end
 
   def banner_url
-    @banner_url ||= logo_url
+    @banner_url || logo_url
   end
 
   def favicon_url
@@ -33,6 +33,6 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
   end
 
   def open_graph_image_url
-    @open_graph_image_url ||= "#{Mumukit::Platform.application.url}/logo-alt.png"
+    @open_graph_image_url ||= Mumukit::Platform.application.url_for("logo-alt.png")
   end
 end

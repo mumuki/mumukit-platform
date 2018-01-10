@@ -24,6 +24,12 @@ describe Mumukit::Platform::Organization do
       feedback_suggestions_enabled: true,
       id: 998 }
   end
+  let(:images_url_json) do
+    { logo_url: 'http://mumuki.io/new-logo.png',
+      favicon_url: 'http://mumuki.io/new-favicon.png',
+      breadcrumb_image_url: 'http://mumuki.io/new-breadcrumb-image.png',
+      open_graph_image_url: 'http://mumuki.io/new-og-image.png'}
+  end
 
   describe '#current' do
     context 'when switched' do
@@ -79,6 +85,25 @@ describe Mumukit::Platform::Organization do
       it { expect(subject.locale).to eq 'en' }
       it { expect(subject.description).to eq 'Academy' }
       it { expect(subject.terms_of_service).to eq 'TOS' }
+    end
+
+    describe Mumukit::Platform::Organization::Profile do
+      subject { Mumukit::Platform::Organization::Profile.parse({}) }
+
+      it { expect(subject.logo_url).to eq 'https://mumuki.io/logo-alt-large.png' }
+      it { expect(subject.banner_url).to eq 'https://mumuki.io/logo-alt-large.png' }
+      it { expect(subject.favicon_url).to eq '/favicon.ico' }
+      it { expect(subject.breadcrumb_image_url).to eq nil }
+      it { expect(subject.open_graph_image_url).to eq 'http://sample.app.com/logo-alt.png' }
+    end
+
+    describe Mumukit::Platform::Organization::Profile do
+      subject { Mumukit::Platform::Organization::Profile.parse(images_url_json) }
+      it { expect(subject.logo_url).to eq 'http://mumuki.io/new-logo.png' }
+      it { expect(subject.banner_url).to eq 'http://mumuki.io/new-logo.png' }
+      it { expect(subject.favicon_url).to eq 'http://mumuki.io/new-favicon.png' }
+      it { expect(subject.breadcrumb_image_url).to eq 'http://mumuki.io/new-breadcrumb-image.png' }
+      it { expect(subject.open_graph_image_url).to eq 'http://mumuki.io/new-og-image.png' }
     end
   end
 
