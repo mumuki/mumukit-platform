@@ -20,6 +20,8 @@ describe Mumukit::Platform::Organization do
       terms_of_service: 'TOS',
       theme_stylesheet_url: 'http://mumuki.io/theme.css',
       extension_javascript_url: 'http://mumuki.io/scripts.js',
+      laboratory_custom_domain: 'labodomain.com',
+      classroom_custom_domain: 'classroomdomain.com',
       raise_hand_enabled: true,
       feedback_suggestions_enabled: true,
       id: 998 }
@@ -45,6 +47,8 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.raise_hand_enabled?).to be true }
+        it { expect(subject.laboratory_custom_domain).to eq 'labodomain.com' }
+        it { expect(subject.classroom_custom_domain).to eq 'classroomdomain.com' }
         it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
       end
