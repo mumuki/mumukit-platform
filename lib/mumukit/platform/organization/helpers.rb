@@ -15,6 +15,8 @@ module Mumukit::Platform::Organization::Helpers
              :raise_hand_enabled=,
              :public?,
              :public=,
+             :immersive?,
+             :immersive=,
              :private?, to: :settings
 
     delegate :logo_url,

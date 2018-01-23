@@ -14,6 +14,7 @@ describe Mumukit::Platform::Organization do
       books: ['a-book'],
       locale: 'en',
       public: false,
+      immersive: false,
       description: 'Academy',
       login_methods: %w{facebook twitter google},
       logo_url: 'http://mumuki.io/logo-alt-large.png',
@@ -53,10 +54,12 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.raise_hand_enabled?).to be true }
         it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
+        it { expect(subject.immersive?).to eq false }
       end
       describe '.load' do
         let(:settings) { Mumukit::Platform::Organization::Settings.new(
                             public: true,
+                            immersive: true,
                             raise_hand_enabled: false,
                             login_methods: [:google]) }
         let(:dump) { Mumukit::Platform::Organization::Settings.dump(settings) }
@@ -67,6 +70,7 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.raise_hand_enabled?).to be false }
         it { expect(subject.feedback_suggestions_enabled?).to be false }
         it { expect(subject.public?).to eq true }
+        it { expect(subject.immersive?).to eq true }
       end
     end
 
