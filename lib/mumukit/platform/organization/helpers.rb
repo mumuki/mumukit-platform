@@ -54,6 +54,10 @@ module Mumukit::Platform::Organization::Helpers
     name == 'test'
   end
 
+  def base?
+    name == 'base'
+  end
+
   def switch!
     Mumukit::Platform::Organization.switch! self
   end
