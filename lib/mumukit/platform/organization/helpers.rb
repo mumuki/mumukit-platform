@@ -70,8 +70,16 @@ module Mumukit::Platform::Organization::Helpers
     Mumukit::Platform.application.organic_domain(name)
   end
 
+  def self.valid_name?(name)
+    !!(name =~ anchored_valid_name_regex)
+  end
+
+  def self.anchored_valid_name_regex
+    /\A#{valid_name_regex}\z/
+  end
+
   def self.valid_name_regex
-    /\A([-a-z0-9_]+(\.[-a-z0-9_]+)*)?\z/
+    /([-a-z0-9_]+(\.[-a-z0-9_]+)*)?/
   end
 
   module ClassMethods
