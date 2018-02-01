@@ -1,9 +1,5 @@
 class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
-  LOCALES = {
-    en: { facebook_code: :en_US, name: 'English' },
-    es: { facebook_code: :es_LA, name: 'Español' },
-    br: { facebook_code: :pt_BR, name: 'Português' }
-  }.with_indifferent_access
+  LOCALES = Mumukit::Platform::Locale::SPECS
 
   model_attr_accessor :logo_url,
                       :banner_url,
@@ -17,7 +13,11 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
                       :community_link
 
   def locale_json
-    LOCALES[locale].to_json
+    locale_h.to_json
+  end
+
+  def locale_h
+    Mumukit::Platform::Locale::SPECS[locale]
   end
 
   def logo_url

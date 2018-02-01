@@ -86,9 +86,14 @@ describe Mumukit::Platform::Organization do
 
       it { expect(subject.logo_url).to eq 'http://mumuki.io/logo-alt-large.png' }
       it { expect(subject.contact_email).to eq 'issues@mumuki.io' }
-      it { expect(subject.locale).to eq 'en' }
       it { expect(subject.description).to eq 'Academy' }
       it { expect(subject.terms_of_service).to eq 'TOS' }
+
+      it { expect(subject.locale).to eq 'en' }
+      it { expect(subject.locale_json).to json_eq facebook_code: 'en_US', auth0_code: 'en', name: 'English' }
+      it { expect(subject.locale_json).to be_a String }
+      it { expect(subject.locale_h).to json_eq facebook_code: 'en_US', auth0_code: 'en', name: 'English' }
+      it { expect(subject.locale_h).to be_a Hash }
     end
 
     describe Mumukit::Platform::Organization::Profile do

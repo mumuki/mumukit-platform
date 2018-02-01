@@ -2,6 +2,7 @@ ENV['RACK_ENV'] = 'test'
 
 require 'bundler/setup'
 require 'mumukit/platform'
+require 'mumukit/core/rspec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
