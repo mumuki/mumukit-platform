@@ -8,4 +8,8 @@ module Mumukit::Platform::Locale
   def self.supported
     SPECS.keys
   end
+
+  def self.get_spec_for(locale, type)
+    SPECS.dig(locale, type)
+  end
 end
