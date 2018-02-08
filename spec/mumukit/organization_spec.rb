@@ -55,6 +55,8 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
         it { expect(subject.immersive?).to eq false }
+
+        it { expect(Mumukit::Platform::Organization::Settings.parse(nil)).to be_empty }
       end
       describe '.load' do
         let(:settings) { Mumukit::Platform::Organization::Settings.new(
@@ -71,6 +73,8 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.feedback_suggestions_enabled?).to be false }
         it { expect(subject.public?).to eq true }
         it { expect(subject.immersive?).to eq true }
+
+        it { expect(Mumukit::Platform::Organization::Settings.load(nil)).to be_empty }
       end
     end
 
