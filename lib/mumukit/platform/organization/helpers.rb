@@ -4,7 +4,9 @@ module Mumukit::Platform::Organization::Helpers
 
   included do
     delegate :theme_stylesheet,
-             :extension_javascript, to: :theme
+             :theme_stylesheet=,
+             :extension_javascript,
+             :extension_javascript=, to: :theme
 
     delegate :login_methods,
              :login_methods=,
