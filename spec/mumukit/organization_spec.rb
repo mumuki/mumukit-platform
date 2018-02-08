@@ -19,8 +19,8 @@ describe Mumukit::Platform::Organization do
       login_methods: %w{facebook twitter google},
       logo_url: 'http://mumuki.io/logo-alt-large.png',
       terms_of_service: 'TOS',
-      theme_stylesheet_url: 'http://mumuki.io/theme.css',
-      extension_javascript_url: 'http://mumuki.io/scripts.js',
+      theme_stylesheet: '.foo { }',
+      extension_javascript: 'function foo() { }',
       raise_hand_enabled: true,
       feedback_suggestions_enabled: true,
       id: 998 }
@@ -81,8 +81,8 @@ describe Mumukit::Platform::Organization do
     describe Mumukit::Platform::Organization::Theme do
       subject { Mumukit::Platform::Organization::Theme.parse(json) }
 
-      it { expect(subject.theme_stylesheet_url).to eq 'http://mumuki.io/theme.css' }
-      it { expect(subject.extension_javascript_url).to eq 'http://mumuki.io/scripts.js' }
+      it { expect(subject.theme_stylesheet).to eq '.foo { }' }
+      it { expect(subject.extension_javascript).to eq 'function foo() { }' }
     end
 
     describe Mumukit::Platform::Organization::Profile do

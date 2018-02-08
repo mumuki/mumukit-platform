@@ -3,8 +3,8 @@ module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
 
   included do
-    delegate :theme_stylesheet_url,
-             :extension_javascript_url, to: :theme
+    delegate :theme_stylesheet,
+             :extension_javascript, to: :theme
 
     delegate :login_methods,
              :login_methods=,
