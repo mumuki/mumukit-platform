@@ -1,4 +1,3 @@
-
 module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
 

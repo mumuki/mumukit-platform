@@ -26,6 +26,16 @@ module Mumukit::Platform
   def self.config
     @config
   end
+
+  [:organization, :user].each do |klass|
+    define_singleton_method("#{klass}_class") do
+      begin
+        config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
+      rescue
+        raise "You must configure your #{klass} class first"
+      end
+    end
+  end
 end
 
 require_relative './platform/domain'

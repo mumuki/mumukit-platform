@@ -11,6 +11,10 @@ module Mumukit::Platform::Organization
   def self.current
     Thread.current[:organization] || raise('organization not selected')
   end
+
+  def self.find_by_name!(name)
+    Mumukit::Platform.organization_class.find_by_name!(name)
+  end
 end
 
 require_relative './organization/settings'
