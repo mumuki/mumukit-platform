@@ -18,8 +18,15 @@ module Mumukit::Platform::User::Helpers
   end
 
   [:student, :teacher, :headmaster, :janitor].each do |role|
-    define_method "#{role}_of?" do |organization|
+    role_of = "#{role}_of?"
+    role_here = "#{role}_here?"
+
+    define_method role_of do |organization|
       has_permission? role, organization.slug
+    end
+
+    define_method role_here do
+      send role_of, Mumukit::Platform::Organization.current
     end
   end
 

@@ -33,7 +33,7 @@ describe Mumukit::Platform::User do
 
   describe Mumukit::Platform::User::Helpers do
     let(:user) { DemoUser.new }
-    let(:organization) { struct slug: 'foo/_' }
+    let(:organization) { struct slug: 'foo/_', name: 'foo' }
 
     it { expect(user.writer?).to be false }
     it { expect(user.student?).to be false }
@@ -46,6 +46,27 @@ describe Mumukit::Platform::User do
 
       it { expect(user.student_of? organization).to be true }
       it { expect(user.student_of? struct(slug: 'bar/_')).to be false }
+    end
+
+    describe 'student_here?' do
+      before { Mumukit::Platform::Organization.leave! }
+
+      context 'no organization selected' do
+        it { expect { user.student_here? }.to raise_error('organization not selected') }
+      end
+
+      context 'organization selected' do
+        before { Mumukit::Platform::Organization.switch! organization }
+
+        context 'when in organization' do
+          before { user.make_student_of! organization }
+          it { expect(user.student_here?).to be true }
+        end
+
+        context 'when not in organization' do
+          it { expect(user.student_here?).to be false }
+        end
+      end
     end
 
     describe 'accessible_organizations' do
