@@ -42,6 +42,7 @@ end
 require_relative './platform/domain'
 require_relative './platform/model'
 require_relative './platform/locale'
+require_relative './platform/user'
 require_relative './platform/organization'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
