@@ -72,6 +72,12 @@ module Mumukit::Platform::User::Helpers
     !!main_organization.try(&:immersive?)
   end
 
+  ## API Exposure
+
+  def to_param
+    uid
+  end
+
   ## Event Notification
 
   def notify!

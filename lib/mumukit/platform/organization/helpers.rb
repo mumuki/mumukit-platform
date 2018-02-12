@@ -76,6 +76,14 @@ module Mumukit::Platform::Organization::Helpers
     Mumukit::Platform.application.organic_domain(name)
   end
 
+  ## API Exposure
+
+  def to_param
+    name
+  end
+
+  ## Name validation
+
   def self.valid_name?(name)
     !!(name =~ anchored_valid_name_regex)
   end
