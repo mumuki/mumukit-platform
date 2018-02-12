@@ -47,6 +47,14 @@ describe Mumukit::Platform::Organization do
 
   describe 'json conversion' do
     describe Mumukit::Platform::Organization::Settings do
+      describe 'boolean accessors' do
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: true)).to be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: 'true')).to be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: false)).to_not be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: nil)).to_not be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: 'false')).to_not be_public }
+      end
+
       describe '.parse' do
         subject { Mumukit::Platform::Organization::Settings.parse(json) }
 

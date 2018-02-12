@@ -8,7 +8,16 @@ class Mumukit::Platform::Model
   end
 
   def self.model_attr_accessor(*keys)
+    bools, raws = keys.partition { |it| it.to_s.end_with? '?' }
+    raw_bools = bools.map { |it| it.to_s[0..-2].to_sym }
+    keys = raws + raw_bools
+
     attr_accessor(*keys)
+
+    raw_bools.each do |it|
+      define_method("#{it}?") { !!send(it) }
+      define_method("#{it}=") { |value| instance_variable_set("@#{it}", [true, 'true'].include?(value)) }
+    end
 
     # Parses model from an event.
     # Only allowed keys are accepted
