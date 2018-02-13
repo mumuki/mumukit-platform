@@ -37,6 +37,7 @@ module Mumukit::Platform::Organization::Helpers
              :description,
              :description=,
              :community_link,
+             :community_link=,
              :terms_of_service,
              :terms_of_service=,
              :contact_email,
