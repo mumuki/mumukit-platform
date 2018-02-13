@@ -14,10 +14,6 @@ module Mumukit::Platform::WithApplications
     Mumukit::Platform::Application::Organic.new config.classroom_api_url, organization_mapping
   end
 
-  def office
-    Mumukit::Platform::Application::Basic.new config.office_url
-  end
-
   def bibliotheca
     Mumukit::Platform::Application::Basic.new config.bibliotheca_url
   end
