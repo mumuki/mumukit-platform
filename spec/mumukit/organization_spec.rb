@@ -1,12 +1,28 @@
 require_relative '../spec_helper'
 
+class DemoOrganization
+  include Mumukit::Platform::Organization::Helpers
+
+  attr_accessor :name, :profile, :settings, :theme, :book
+
+  def self.find_by_name!
+  end
+
+  def initialize
+    @name ='orga'
+    @profile =  Mumukit::Platform::Organization::Profile.new community_link: 'http://link/to/community',
+                                                             terms_of_service: 'The TOS',
+                                                             description: 'the description'
+    @settings = Mumukit::Platform::Organization::Settings.new
+    @theme =    Mumukit::Platform::Organization::Theme.new theme_stylesheet: 'css',
+                                                           extension_javascript: 'js'
+    @book = struct(slug: 'the/book')
+  end
+end
+
 describe Mumukit::Platform::Organization do
   let(:organization) do
-    struct(
-      name: 'orga',
-      profile:   Mumukit::Platform::Organization::Profile.new,
-      settings:  Mumukit::Platform::Organization::Settings.new,
-      theme:     Mumukit::Platform::Organization::Theme.new)
+    DemoOrganization.new
   end
   let(:json) do
     { name: 'test-orga',
@@ -129,7 +145,6 @@ describe Mumukit::Platform::Organization do
   end
 
   describe Mumukit::Platform::Organization::Helpers do
-    before { organization.singleton_class.instance_eval { include Mumukit::Platform::Organization::Helpers } }
     let(:parsed) { organization.singleton_class.parse(json) }
 
     describe '.parse' do
@@ -148,6 +163,29 @@ describe Mumukit::Platform::Organization do
     end
     describe '#domain' do
       it { expect(organization.domain).to eq 'orga.sample.app.com' }
+    end
+
+    describe 'as_platform_json' do
+      let(:json) { {
+          name: 'orga',
+          logo_url: 'https://mumuki.io/logo-alt-large.png',
+          open_graph_image_url: 'http://sample.app.com/logo-alt.png',
+          banner_url: 'https://mumuki.io/logo-alt-large.png',
+          immersive: false,
+          public: false,
+          raise_hand_enabled: false,
+          login_methods: ['user_pass'],
+          favicon_url: '/favicon.ico',
+          feedback_suggestions_enabled: false,
+          book: 'the/book',
+          community_link: 'http://link/to/community',
+          terms_of_service: 'The TOS',
+          theme_stylesheet: 'css',
+          extension_javascript: 'js',
+          description: 'the description'
+      } }
+
+      it { expect(organization.as_platform_json).to json_eq json }
     end
 
     describe '#valid_name?' do

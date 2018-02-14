@@ -1,6 +1,14 @@
 module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
 
+  ## Implementors must declare the following methods:
+  #
+  #  * name
+  #  * book
+  #  * profile
+  #  * settings
+  #  * theme
+
   included do
     delegate :theme_stylesheet,
              :theme_stylesheet=,
@@ -94,6 +102,36 @@ module Mumukit::Platform::Organization::Helpers
 
   def self.valid_name_regex
     /([-a-z0-9_]+(\.[-a-z0-9_]+)*)?/
+  end
+
+  ## Platform JSON
+
+  def as_platform_json
+    {
+      name: name,
+      book: book.slug,
+      banner_url: banner_url,
+      breadcrumb_image_url: breadcrumb_image_url,
+      community_link: community_link,
+      contact_email: contact_email,
+      description: description,
+      extension_javascript: extension_javascript,
+      favicon_url: favicon_url,
+      feedback_suggestions_enabled: feedback_suggestions_enabled?,
+      immersive: immersive?,
+      locale: locale,
+      login_methods: login_methods,
+      logo_url: logo_url,
+      open_graph_image_url: open_graph_image_url,
+      public: public?,
+      raise_hand_enabled: raise_hand_enabled?,
+      terms_of_service: terms_of_service,
+      theme_stylesheet: theme_stylesheet
+    }.except(*protected_platform_fields).compact
+  end
+
+  def protected_platform_fields
+    []
   end
 
   module ClassMethods

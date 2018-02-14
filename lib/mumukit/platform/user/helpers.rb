@@ -1,6 +1,16 @@
 module Mumukit::Platform::User::Helpers
   include Mumukit::Auth::Roles
 
+  ## Implementors must declare the following methods:
+  #
+  #  * permissions
+  #  * uid
+  #  * social_id
+  #  * image_url
+  #  * email
+  #  * first_name
+  #  * last_name
+
   ## Permissions
 
   delegate :has_role?,
@@ -78,19 +88,21 @@ module Mumukit::Platform::User::Helpers
     uid
   end
 
-  ## Event Notification
+  ## Platform JSON
 
-  def notify!
-    Mumukit::Nuntius.notify_event! 'UserChanged', user: event_json
+  def as_platform_json
+    {
+      uid: uid,
+      social_id: social_id,
+      image_url: image_url,
+      email: email,
+      first_name: first_name,
+      last_name: last_name,
+      permissions: permissions
+    }.except(*protected_platform_fields).compact
   end
 
-  def event_json
-    as_json(only: [:uid, :social_id, :image_url, :email, :first_name, :last_name], methods: [:permissions])
-      .except(*protected_event_fields)
-      .compact
-  end
-
-  def protected_event_fields
+  def protected_platform_fields
     []
   end
 end

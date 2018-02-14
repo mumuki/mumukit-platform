@@ -3,9 +3,14 @@ require_relative '../spec_helper'
 class DemoUser
   include Mumukit::Platform::User::Helpers
 
-  attr_accessor :permissions
+  attr_accessor :permissions, :uid, :social_id, :image_url, :email, :first_name, :last_name
 
   def initialize
+    @uid = 'foo@bar.com'
+    @image_url = 'image.png'
+    @email = 'foo@bar.com'
+    @first_name = 'Jon'
+    @last_name = 'Doe'
     @permissions = Mumukit::Auth::Permissions.new
   end
 end
@@ -48,6 +53,17 @@ describe Mumukit::Platform::User do
       it { expect(user.student_of? struct(slug: 'bar/_')).to be false }
     end
 
+    describe 'as_platform_json' do
+      let(:json) { {
+        uid: 'foo@bar.com',
+        image_url: 'image.png',
+        email: 'foo@bar.com',
+        first_name: 'Jon',
+        last_name: 'Doe',
+        permissions: {}} }
+      it { expect(user.as_platform_json).to json_eq json }
+    end
+
     describe 'student_here?' do
       before { Mumukit::Platform::Organization.leave! }
 
@@ -70,7 +86,7 @@ describe Mumukit::Platform::User do
     end
 
     describe 'accessible_organizations' do
-      before { Mumukit::Platform.config.organization_class = class_double('DemoOrganization') }
+      before { Mumukit::Platform.config.organization_class = class_double('UserSpecDemoOrganization') }
 
       context 'no organization' do
         it { expect(user.accessible_organizations).to eq [] }
