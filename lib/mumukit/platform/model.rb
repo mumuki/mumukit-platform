@@ -16,7 +16,7 @@ class Mumukit::Platform::Model
 
     raw_bools.each do |it|
       define_method("#{it}?") { !!send(it) }
-      define_method("#{it}=") { |value| instance_variable_set("@#{it}", [true, 'true'].include?(value)) }
+      define_method("#{it}=") { |value| instance_variable_set("@#{it}", value.to_boolean) }
     end
 
     # Parses model from an event.
@@ -36,5 +36,12 @@ class Mumukit::Platform::Model
   # Deserializes model
   def self.load(json)
     json ? new(JSON.parse(json)) : new
+  end
+end
+
+
+class Object
+  def to_boolean
+    [true, 'true', '1', 1].include?(self)
   end
 end

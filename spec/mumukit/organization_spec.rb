@@ -69,6 +69,10 @@ describe Mumukit::Platform::Organization do
         it { expect(Mumukit::Platform::Organization::Settings.new(public: false)).to_not be_public }
         it { expect(Mumukit::Platform::Organization::Settings.new(public: nil)).to_not be_public }
         it { expect(Mumukit::Platform::Organization::Settings.new(public: 'false')).to_not be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: 1)).to be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: 0)).to_not be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: '1')).to be_public }
+        it { expect(Mumukit::Platform::Organization::Settings.new(public: '0')).to_not be_public }
       end
 
       describe '.parse' do
