@@ -1,28 +1,12 @@
 class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
   model_attr_accessor :login_methods,
-                      :raise_hand_enabled,
-                      :feedback_suggestions_enabled,
-                      :public,
-                      :immersive
-
-  def raise_hand_enabled?
-    !!raise_hand_enabled
-  end
-
-  def feedback_suggestions_enabled?
-    !!feedback_suggestions_enabled
-  end
-
-  def public?
-    !!public
-  end
+                      :raise_hand_enabled?,
+                      :feedback_suggestions_enabled?,
+                      :public?,
+                      :immersive?
 
   def private?
     !public?
-  end
-
-  def immersive?
-    !!immersive
   end
 
   def login_methods

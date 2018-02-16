@@ -1,4 +1,5 @@
 require 'mumukit/core'
+require 'mumukit/auth'
 
 require_relative './platform/version'
 require_relative './platform/uri'
@@ -26,11 +27,22 @@ module Mumukit::Platform
   def self.config
     @config
   end
+
+  [:organization, :user].each do |klass|
+    define_singleton_method("#{klass}_class") do
+      begin
+        config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
+      rescue
+        raise "You must configure your #{klass} class first"
+      end
+    end
+  end
 end
 
 require_relative './platform/domain'
 require_relative './platform/model'
 require_relative './platform/locale'
+require_relative './platform/user'
 require_relative './platform/organization'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
