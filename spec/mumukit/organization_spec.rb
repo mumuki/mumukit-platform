@@ -9,7 +9,7 @@ class DemoOrganization
   end
 
   def initialize
-    @name ='orga'
+    @name = 'orga'
     @profile =  Mumukit::Platform::Organization::Profile.new community_link: 'http://link/to/community',
                                                              terms_of_service: 'The TOS',
                                                              description: 'the description'
