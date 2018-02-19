@@ -38,7 +38,9 @@ module Mumukit::Platform::Organization::Helpers
              :terms_of_service,
              :terms_of_service=,
              :contact_email,
-             :contact_email=, to: :profile
+             :contact_email=,
+             :errors_explanations,
+             :errors_explanations=, to: :profile
 
   end
 

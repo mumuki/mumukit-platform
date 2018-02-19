@@ -10,7 +10,8 @@ class Mumukit::Platform::Organization::Profile < Mumukit::Platform::Model
                       :description,
                       :contact_email,
                       :terms_of_service,
-                      :community_link
+                      :community_link,
+                      :errors_explanations
 
   def locale_json
     locale_h.to_json
