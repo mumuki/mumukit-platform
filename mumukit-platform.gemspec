@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'mumukit-nuntius', '~> 6.0'
   spec.add_dependency 'mumukit-core', '~> 1.2'
   spec.add_dependency 'mumukit-auth', '~> 7.0'
   spec.add_dependency 'activemodel', '>= 4.0'

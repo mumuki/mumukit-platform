@@ -1,10 +1,13 @@
 require 'mumukit/core'
 require 'mumukit/auth'
+require 'mumukit/nuntius'
 
 require_relative './platform/version'
 require_relative './platform/uri'
 
 module Mumukit::Platform
+  CORE_MODELS = [:organization, :user, :course]
+
   def self.configure
     @config ||= defaults
     yield @config
@@ -28,7 +31,7 @@ module Mumukit::Platform
     @config
   end
 
-  [:organization, :user, :course].each do |klass|
+  CORE_MODELS.each do |klass|
     define_singleton_method("#{klass}_class") do
       begin
         config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
@@ -38,6 +41,8 @@ module Mumukit::Platform
     end
   end
 end
+
+require_relative './platform/notifiable'
 
 require_relative './platform/domain'
 require_relative './platform/model'

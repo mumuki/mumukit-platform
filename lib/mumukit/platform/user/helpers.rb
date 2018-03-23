@@ -1,5 +1,6 @@
 module Mumukit::Platform::User::Helpers
   include Mumukit::Auth::Roles
+  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -22,6 +23,10 @@ module Mumukit::Platform::User::Helpers
            :protect_delegation!,
            :protect_permissions_assignment!,
            to: :permissions
+
+  def platform_class_name
+    :User
+  end
 
   def merge_permissions!(new_permissions)
     self.permissions = permissions.merge(new_permissions)

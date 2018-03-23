@@ -21,9 +21,7 @@ class DemoOrganization
 end
 
 describe Mumukit::Platform::Organization do
-  let(:organization) do
-    DemoOrganization.new
-  end
+  let(:organization) { DemoOrganization.new }
   let(:json) do
     { name: 'test-orga',
       contact_email: 'issues@mumuki.io',
@@ -47,6 +45,9 @@ describe Mumukit::Platform::Organization do
       breadcrumb_image_url: 'http://mumuki.io/new-breadcrumb-image.png',
       open_graph_image_url: 'http://mumuki.io/new-og-image.png' }
   end
+
+  it { expect(organization.platform_event_name(:created)).to eq 'OrganizationCreated' }
+  it { expect(organization.as_platform_event).to eq organization: organization.as_platform_json }
 
   describe '#current' do
     context 'when switched' do

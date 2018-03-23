@@ -1,4 +1,5 @@
 module Mumukit::Platform::Course::Helpers
+  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -8,6 +9,10 @@ module Mumukit::Platform::Course::Helpers
   #  * days
   #  * period
   #  * description
+
+  def platform_class_name
+    :Course
+  end
 
   ## API Exposure
 

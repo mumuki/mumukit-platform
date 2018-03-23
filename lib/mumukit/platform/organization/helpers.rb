@@ -1,5 +1,6 @@
 module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
+  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -52,6 +53,10 @@ module Mumukit::Platform::Organization::Helpers
              :errors_explanations,
              :errors_explanations=, to: :profile
 
+  end
+
+  def platform_class_name
+    :Organization
   end
 
   def slug
