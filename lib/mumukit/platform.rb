@@ -28,7 +28,7 @@ module Mumukit::Platform
     @config
   end
 
-  [:organization, :user].each do |klass|
+  [:organization, :user, :course].each do |klass|
     define_singleton_method("#{klass}_class") do
       begin
         config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
@@ -42,6 +42,7 @@ end
 require_relative './platform/domain'
 require_relative './platform/model'
 require_relative './platform/locale'
+require_relative './platform/course'
 require_relative './platform/user'
 require_relative './platform/organization'
 require_relative './platform/organization_mapping'
