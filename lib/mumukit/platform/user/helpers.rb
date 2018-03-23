@@ -50,6 +50,8 @@ module Mumukit::Platform::User::Helpers
     "#{first_name} #{last_name}"
   end
 
+  alias_method :name, :full_name
+
   def profile_completed?
     [first_name, last_name].all? &:present?
   end

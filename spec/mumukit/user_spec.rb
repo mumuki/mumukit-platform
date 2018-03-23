@@ -40,6 +40,8 @@ describe Mumukit::Platform::User do
     let(:user) { DemoUser.new }
     let(:organization) { struct slug: 'foo/_', name: 'foo' }
 
+    it { expect(user.name).to eq 'Jon Doe' }
+    it { expect(user.full_name).to eq 'Jon Doe' }
     it { expect(user.writer?).to be false }
     it { expect(user.student?).to be false }
 
