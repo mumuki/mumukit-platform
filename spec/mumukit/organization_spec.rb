@@ -13,7 +13,7 @@ class DemoOrganization
     @profile =  Mumukit::Platform::Organization::Profile.new community_link: 'http://link/to/community',
                                                              terms_of_service: 'The TOS',
                                                              description: 'the description'
-    @settings = Mumukit::Platform::Organization::Settings.new
+    @settings = Mumukit::Platform::Organization::Settings.new immersive: true
     @theme =    Mumukit::Platform::Organization::Theme.new theme_stylesheet: 'css',
                                                            extension_javascript: 'js'
     @book = struct(slug: 'the/book')
@@ -24,20 +24,26 @@ describe Mumukit::Platform::Organization do
   let(:organization) { DemoOrganization.new }
   let(:json) do
     { name: 'test-orga',
-      contact_email: 'issues@mumuki.io',
-      books: ['a-book'],
-      locale: 'en',
-      public: false,
-      immersive: false,
-      description: 'Academy',
-      login_methods: %w{facebook twitter google},
-      logo_url: 'http://mumuki.io/logo-alt-large.png',
-      terms_of_service: 'TOS',
-      theme_stylesheet: '.foo { }',
-      extension_javascript: 'function foo() { }',
-      raise_hand_enabled: true,
-      feedback_suggestions_enabled: true,
-      id: 998 }
+      id: 998,
+      settings: {
+        feedback_suggestions_enabled: true,
+        raise_hand_enabled: true,
+        public: false,
+        immersive: false,
+        login_methods: %w{facebook twitter google}
+      },
+      profile: {
+        contact_email: 'issues@mumuki.io',
+        description: 'Academy',
+        terms_of_service: 'TOS',
+        logo_url: 'http://mumuki.io/logo-alt-large.png',
+        locale: 'en'
+      },
+      theme: {
+        theme_stylesheet: '.foo { }',
+        extension_javascript: 'function foo() { }'
+      }
+    }
   end
   let(:images_url_json) do
     { logo_url: 'http://mumuki.io/new-logo.png',
@@ -77,7 +83,7 @@ describe Mumukit::Platform::Organization do
       end
 
       describe '.parse' do
-        subject { Mumukit::Platform::Organization::Settings.parse(json) }
+        subject { Mumukit::Platform::Organization::Settings.parse(json[:settings]) }
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.raise_hand_enabled?).to be true }
@@ -108,14 +114,14 @@ describe Mumukit::Platform::Organization do
     end
 
     describe Mumukit::Platform::Organization::Theme do
-      subject { Mumukit::Platform::Organization::Theme.parse(json) }
+      subject { Mumukit::Platform::Organization::Theme.parse(json[:theme]) }
 
       it { expect(subject.theme_stylesheet).to eq '.foo { }' }
       it { expect(subject.extension_javascript).to eq 'function foo() { }' }
     end
 
     describe Mumukit::Platform::Organization::Profile do
-      subject { Mumukit::Platform::Organization::Profile.parse(json) }
+      subject { Mumukit::Platform::Organization::Profile.parse(json[:profile]) }
 
       it { expect(subject.logo_url).to eq 'http://mumuki.io/logo-alt-large.png' }
       it { expect(subject.contact_email).to eq 'issues@mumuki.io' }
@@ -171,26 +177,23 @@ describe Mumukit::Platform::Organization do
     end
 
     describe 'as_platform_json' do
-      let(:json) { {
+      let(:platform_json) { {
           name: 'orga',
-          logo_url: 'https://mumuki.io/logo-alt-large.png',
-          open_graph_image_url: 'http://sample.app.com/logo-alt.png',
-          banner_url: 'https://mumuki.io/logo-alt-large.png',
-          immersive: false,
-          public: false,
-          raise_hand_enabled: false,
-          login_methods: ['user_pass'],
-          favicon_url: '/favicon.ico',
-          feedback_suggestions_enabled: false,
           book: 'the/book',
-          community_link: 'http://link/to/community',
-          terms_of_service: 'The TOS',
-          theme_stylesheet: 'css',
-          extension_javascript: 'js',
-          description: 'the description'
+          profile: {
+            description: 'the description',
+            terms_of_service: 'The TOS',
+            community_link: 'http://link/to/community'
+          },
+          theme: {
+            theme_stylesheet: 'css',
+            extension_javascript: 'js'
+          },
+          settings: {
+            immersive: true
+          }
       } }
-
-      it { expect(organization.as_platform_json).to json_eq json }
+      it { expect(organization.as_platform_json).to json_eq platform_json }
     end
 
     describe '#valid_name?' do
