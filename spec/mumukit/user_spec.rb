@@ -40,8 +40,12 @@ describe Mumukit::Platform::User do
     let(:user) { DemoUser.new }
     let(:organization) { struct slug: 'foo/_', name: 'foo' }
 
+    it { expect(user.name).to eq 'Jon Doe' }
+    it { expect(user.full_name).to eq 'Jon Doe' }
     it { expect(user.writer?).to be false }
     it { expect(user.student?).to be false }
+    it { expect(user.platform_event_name(:changed)).to eq 'UserChanged' }
+    it { expect(user.as_platform_event).to eq user: user.as_platform_json }
 
     describe 'make_student_of!' do
       before { user.make_student_of! organization }

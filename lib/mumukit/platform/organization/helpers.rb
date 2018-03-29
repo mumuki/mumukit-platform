@@ -1,5 +1,6 @@
 module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
+  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -52,6 +53,10 @@ module Mumukit::Platform::Organization::Helpers
              :errors_explanations,
              :errors_explanations=, to: :profile
 
+  end
+
+  def platform_class_name
+    :Organization
   end
 
   def slug
@@ -108,27 +113,17 @@ module Mumukit::Platform::Organization::Helpers
 
   ## Platform JSON
 
+  def self.slice_platform_json(json)
+    json.slice(:name, :book, :profile, :settings, :theme)
+  end
+
   def as_platform_json
     {
       name: name,
       book: book.slug,
-      banner_url: banner_url,
-      breadcrumb_image_url: breadcrumb_image_url,
-      community_link: community_link,
-      contact_email: contact_email,
-      description: description,
-      extension_javascript: extension_javascript,
-      favicon_url: favicon_url,
-      feedback_suggestions_enabled: feedback_suggestions_enabled?,
-      immersive: immersive?,
-      locale: locale,
-      login_methods: login_methods,
-      logo_url: logo_url,
-      open_graph_image_url: open_graph_image_url,
-      public: public?,
-      raise_hand_enabled: raise_hand_enabled?,
-      terms_of_service: terms_of_service,
-      theme_stylesheet: theme_stylesheet
+      profile: profile,
+      settings: settings,
+      theme: theme
     }.except(*protected_platform_fields).compact
   end
 
@@ -144,9 +139,9 @@ module Mumukit::Platform::Organization::Helpers
     def parse(json)
       json
         .slice(:name)
-        .merge(theme: Mumukit::Platform::Organization::Theme.parse(json))
-        .merge(settings: Mumukit::Platform::Organization::Settings.parse(json))
-        .merge(profile: Mumukit::Platform::Organization::Profile.parse(json))
+        .merge(theme: Mumukit::Platform::Organization::Theme.parse(json[:theme]))
+        .merge(settings: Mumukit::Platform::Organization::Settings.parse(json[:settings]))
+        .merge(profile: Mumukit::Platform::Organization::Profile.parse(json[:profile]))
     end
   end
 end

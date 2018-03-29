@@ -1,5 +1,6 @@
 module Mumukit::Platform::User::Helpers
   include Mumukit::Auth::Roles
+  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -22,6 +23,10 @@ module Mumukit::Platform::User::Helpers
            :protect_delegation!,
            :protect_permissions_assignment!,
            to: :permissions
+
+  def platform_class_name
+    :User
+  end
 
   def merge_permissions!(new_permissions)
     self.permissions = permissions.merge(new_permissions)
@@ -49,6 +54,8 @@ module Mumukit::Platform::User::Helpers
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  alias_method :name, :full_name
 
   def profile_completed?
     [first_name, last_name].all? &:present?
@@ -89,6 +96,10 @@ module Mumukit::Platform::User::Helpers
   end
 
   ## Platform JSON
+
+  def self.slice_platform_json(json)
+    json.slice(:uid, :social_id, :image_url, :email, :first_name, :last_name, :permissions)
+  end
 
   def as_platform_json
     {
