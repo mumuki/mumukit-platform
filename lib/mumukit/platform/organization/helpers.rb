@@ -113,6 +113,10 @@ module Mumukit::Platform::Organization::Helpers
 
   ## Platform JSON
 
+  def self.slice_platform_json(json)
+    json.slice(:name, :book, :profile, :settings, :theme)
+  end
+
   def as_platform_json
     {
       name: name,

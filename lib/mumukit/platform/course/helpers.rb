@@ -22,6 +22,10 @@ module Mumukit::Platform::Course::Helpers
 
   ## Platform JSON
 
+  def self.slice_platform_json(json)
+    json.slice(:slug, :shifts, :code, :days, :period, :description)
+  end
+
   def as_platform_json
     {
       slug: slug,
