@@ -7,23 +7,35 @@ class Mumukit::Platform::Model
     as_json.empty?
   end
 
+  ## Accessors
+
   def self.model_attr_accessor(*keys)
     bools, raws = keys.partition { |it| it.to_s.end_with? '?' }
     raw_bools = bools.map { |it| it.to_s[0..-2].to_sym }
     keys = raws + raw_bools
 
-    attr_accessor(*keys)
-
-    raw_bools.each do |it|
-      define_method("#{it}?") { !!send(it) }
-      define_method("#{it}=") { |value| instance_variable_set("@#{it}", value.to_boolean) }
-    end
+    define_attr_readers keys, raw_bools
+    define_attr_writers keys, raw_bools
 
     # Parses model from an event.
     # Only allowed keys are accepted
     define_singleton_method :parse do |hash|
       hash ? new(hash.slice(*keys)) : new
     end
+  end
+
+  # Define the attribute readers for the model,
+  # given the normal accessor names and the boolean accessor names
+  def self.define_attr_readers(readers, bool_readers)
+    attr_reader(*readers)
+    bool_readers.each { |it| define_method("#{it}?") { !!send(it) } }
+  end
+
+  # Define the attribute writers for the model,
+  # given the normal accessor names and the boolean accessor names
+  def self.define_attr_writers(writers, bool_writers)
+    attr_writer(*writers)
+    bool_writers.each { |it| define_method("#{it}=") { |value| instance_variable_set("@#{it}", value.to_boolean) } }
   end
 
   ## Serialization
