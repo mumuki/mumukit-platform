@@ -12,6 +12,10 @@ module Mumukit::Platform::Organization
     Thread.current[:organization] || raise('organization not selected')
   end
 
+  def self.current_locale
+    Thread.current[:organization]&.locale || 'en'
+  end
+
   def self.find_by_name!(name)
     Mumukit::Platform.organization_class.find_by_name!(name)
   end
