@@ -8,6 +8,7 @@
 /spec/reports/
 /tmp/
 .idea
+nuntius.log
 
 # rspec failure tracking
 .rspec_status
