@@ -1,6 +1,7 @@
 require 'mumukit/core'
 require 'mumukit/auth'
 require 'mumukit/nuntius'
+require 'mumukit/bridge'
 
 require_relative './platform/version'
 require_relative './platform/uri'
@@ -53,6 +54,7 @@ require_relative './platform/organization'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
 require_relative './platform/web_framework'
+require_relative './platform/bridge'
 
 require_relative './platform/with_organization'
 require_relative './platform/with_applications'
