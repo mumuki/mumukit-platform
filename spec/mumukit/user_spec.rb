@@ -48,7 +48,7 @@ describe Mumukit::Platform::User do
     it { expect(user.as_platform_event).to eq user: user.as_platform_json }
 
     describe 'make_student_of!' do
-      before { user.make_student_of! organization }
+      before { user.make_student_of! organization.slug }
 
       it { expect(user.student?).to be true }
       it { expect(user.student? 'bar/_').to be false }
@@ -79,7 +79,7 @@ describe Mumukit::Platform::User do
         before { Mumukit::Platform::Organization.switch! organization }
 
         context 'when in organization' do
-          before { user.make_student_of! organization }
+          before { user.make_student_of! organization.slug }
           it { expect(user.student_here?).to be true }
         end
 
@@ -100,7 +100,7 @@ describe Mumukit::Platform::User do
       end
 
       context 'with organization' do
-        before { user.make_student_of! organization }
+        before { user.make_student_of! organization.slug }
         before { expect(Mumukit::Platform.organization_class).to receive(:find_by_name!).and_return(organization)}
 
         it { expect(user.accessible_organizations).to eq [organization] }
