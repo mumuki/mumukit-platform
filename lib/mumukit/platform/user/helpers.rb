@@ -45,8 +45,8 @@ module Mumukit::Platform::User::Helpers
     end
   end
 
-  def make_student_of!(organization)
-    add_permission! :student, organization.slug
+  def make_student_of!(slug)
+    add_permission! :student, slug
   end
 
   ## Profile
