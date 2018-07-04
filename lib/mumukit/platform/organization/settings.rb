@@ -3,7 +3,8 @@ class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
                       :raise_hand_enabled?,
                       :feedback_suggestions_enabled?,
                       :public?,
-                      :immersive?
+                      :immersive?,
+                      :forum_enabled?
 
   def private?
     !public?
