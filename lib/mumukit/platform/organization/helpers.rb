@@ -23,6 +23,8 @@ module Mumukit::Platform::Organization::Helpers
              :feedback_suggestions_enabled=,
              :raise_hand_enabled?,
              :raise_hand_enabled=,
+             :forum_enabled?,
+             :forum_enabled=,
              :public?,
              :public=,
              :immersive?,
