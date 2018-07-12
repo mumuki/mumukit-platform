@@ -25,6 +25,8 @@ module Mumukit::Platform::Organization::Helpers
              :raise_hand_enabled=,
              :forum_enabled?,
              :forum_enabled=,
+             :report_issue_enabled?,
+             :report_issue_enabled=,
              :public?,
              :public=,
              :immersive?,
