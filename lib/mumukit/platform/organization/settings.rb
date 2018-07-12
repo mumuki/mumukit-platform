@@ -4,7 +4,8 @@ class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
                       :feedback_suggestions_enabled?,
                       :public?,
                       :immersive?,
-                      :forum_enabled?
+                      :forum_enabled?,
+                      :report_issue_enabled?
 
   def private?
     !public?

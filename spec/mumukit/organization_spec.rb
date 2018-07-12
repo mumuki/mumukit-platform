@@ -29,6 +29,7 @@ describe Mumukit::Platform::Organization do
         feedback_suggestions_enabled: true,
         raise_hand_enabled: true,
         forum_enabled: true,
+        report_issue_enabled: true,
         public: false,
         immersive: false,
         login_methods: %w{facebook twitter google}
@@ -88,6 +89,7 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.raise_hand_enabled?).to be true }
+        it { expect(subject.report_issue_enabled?).to be true }
         it { expect(subject.forum_enabled?).to be true }
         it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
@@ -100,6 +102,7 @@ describe Mumukit::Platform::Organization do
                             public: true,
                             immersive: true,
                             raise_hand_enabled: false,
+                            report_issue_enabled: false,
                             forum_enabled: false,
                             login_methods: [:google]) }
         let(:dump) { Mumukit::Platform::Organization::Settings.dump(settings) }
@@ -109,6 +112,7 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.login_methods).to eq %w{google} }
         it { expect(subject.raise_hand_enabled?).to be false }
         it { expect(subject.forum_enabled?).to be false }
+        it { expect(subject.report_issue_enabled?).to be false }
         it { expect(subject.feedback_suggestions_enabled?).to be false }
         it { expect(subject.public?).to eq true }
         it { expect(subject.immersive?).to eq true }
