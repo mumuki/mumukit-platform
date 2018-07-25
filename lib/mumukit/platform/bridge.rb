@@ -50,7 +50,7 @@ class Mumukit::Bridge::Bibliotheca
   def import_content!(resource_type, slug_regex = /.*/, &block)
     send(resource_type.to_s.pluralize).each do |resource|
       slug = resource['slug']
-      return unless slug_regex.matches? slug
+      next unless slug_regex.matches? slug
 
       puts "Importing #{resource_type} #{slug}"
       begin

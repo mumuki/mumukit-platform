@@ -15,7 +15,7 @@ describe Mumukit::Platform do
 
     before do
       expect(bridge).to receive(:get_collection).and_return(
-        [{'slug' => 'foo/a-guide'}, {'slug' => 'baz/a-guide'}],
+        [{'slug' => 'foo/a-guide'}, {'slug' => 'baz/a-guide'}, {'slug' => 'foo/another-guide'}],
         [{'slug' => 'foo/a-topic'}, {'slug' => 'baz/a-topic'}],
         [])
     end
@@ -26,6 +26,7 @@ describe Mumukit::Platform do
         expect(imported_resources).to eq [
           ['guide', 'foo/a-guide'],
           ['guide', 'baz/a-guide'],
+          ['guide', 'foo/another-guide'],
           ['topic', 'foo/a-topic'],
           ['topic', 'baz/a-topic'],
         ]
@@ -34,7 +35,7 @@ describe Mumukit::Platform do
 
     context 'some match' do
       before { bridge.import_contents!(/^foo.*$/, &append_resources) }
-      it { expect(imported_resources).to eq [['guide', 'foo/a-guide'], ['topic', 'foo/a-topic']] }
+      it { expect(imported_resources).to eq [['guide', 'foo/a-guide'], ['guide', 'foo/another-guide'], ['topic', 'foo/a-topic']] }
     end
   end
 end
