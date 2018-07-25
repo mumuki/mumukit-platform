@@ -31,7 +31,7 @@ end
 
 class Mumukit::Bridge::Bibliotheca
 
-  # Import all the contents, using a block that will do the actual
+  # Import all the contents whose slug matches the given regex, using a block that will do the actual
   # persistence job.
   #
   # The block takes:
@@ -40,16 +40,18 @@ class Mumukit::Bridge::Bibliotheca
   #  * a slug (string)
   #
   # Exceptions raised within the block will be ignored
-  def import_contents!(&block)
+  def import_contents!(slug_regex = /.*/, &block)
     %w(guide topic book).each do |resource_type|
-      import_content!(resource_type) { |slug| block.call(resource_type, slug)  }
+      import_content!(resource_type, slug_regex) { |slug| block.call(resource_type, slug)  }
     end
   end
 
-  # Import all the contents of a given type
-  def import_content!(resource_type, &block)
+  # Import all the contents of a given type, that matches a given slug
+  def import_content!(resource_type, slug_regex = /.*/, &block)
     send(resource_type.to_s.pluralize).each do |resource|
       slug = resource['slug']
+      return unless slug_regex.matches? slug
+
       puts "Importing #{resource_type} #{slug}"
       begin
         block.call slug
