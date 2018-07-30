@@ -93,6 +93,7 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.forum_enabled?).to be true }
         it { expect(subject.feedback_suggestions_enabled?).to be true }
         it { expect(subject.public?).to eq false }
+        it { expect(subject.embeddable?).to eq false }
         it { expect(subject.immersive?).to eq false }
 
         it { expect(Mumukit::Platform::Organization::Settings.parse(nil)).to be_empty }
@@ -100,6 +101,7 @@ describe Mumukit::Platform::Organization do
       describe '.load' do
         let(:settings) { Mumukit::Platform::Organization::Settings.new(
                             public: true,
+                            embeddable: true,
                             immersive: true,
                             raise_hand_enabled: false,
                             report_issue_enabled: false,
@@ -115,6 +117,7 @@ describe Mumukit::Platform::Organization do
         it { expect(subject.report_issue_enabled?).to be false }
         it { expect(subject.feedback_suggestions_enabled?).to be false }
         it { expect(subject.public?).to eq true }
+        it { expect(subject.embeddable?).to eq true }
         it { expect(subject.immersive?).to eq true }
 
         it { expect(Mumukit::Platform::Organization::Settings.load(nil)).to be_empty }

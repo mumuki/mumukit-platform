@@ -3,6 +3,7 @@ class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
                       :raise_hand_enabled?,
                       :feedback_suggestions_enabled?,
                       :public?,
+                      :embeddable?,
                       :immersive?,
                       :forum_enabled?,
                       :report_issue_enabled?
