@@ -29,6 +29,8 @@ module Mumukit::Platform::Organization::Helpers
              :report_issue_enabled=,
              :public?,
              :public=,
+             :embeddable?,
+             :embeddable=,
              :immersive?,
              :immersive=,
              :private?, to: :settings
