@@ -15,7 +15,14 @@ module Mumukit::Platform::WebFramework
     end
 
     def self.configure_tenant_path_routes!(mapper, &block)
-      mapper.scope '/:tenant', defaults: {tenant: lazy_string { Mumukit::Platform.current_organization_name }}, &block
+      mapper.scope '/:tenant', tenant_scope_options, &block
+    end
+
+    def self.tenant_scope_options
+      {
+          defaults: { tenant: lazy_string { Mumukit::Platform.current_organization_name } },
+          constraints: { tenant: Mumukit::Platform::Organization::Helpers.valid_name_regex }
+      }
     end
   end
 
