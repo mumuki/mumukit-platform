@@ -1,5 +1,7 @@
 class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
   model_attr_accessor :login_methods,
+                      :login_provider,
+                      :provider_settings,
                       :raise_hand_enabled?,
                       :feedback_suggestions_enabled?,
                       :public?,

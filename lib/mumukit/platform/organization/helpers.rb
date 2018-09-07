@@ -18,6 +18,10 @@ module Mumukit::Platform::Organization::Helpers
 
     delegate :login_methods,
              :login_methods=,
+             :login_provider,
+             :login_provider=,
+             :provider_settings,
+             :provider_settings=,
              :login_settings,
              :feedback_suggestions_enabled?,
              :feedback_suggestions_enabled=,
