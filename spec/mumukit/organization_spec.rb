@@ -225,5 +225,13 @@ describe Mumukit::Platform::Organization do
       it { expect(valid_name? 'a.name.with.Uppercases').to be false }
       it { expect(valid_name? 'A random name').to be false }
     end
+
+    describe '#as_json' do
+      context 'when settings has unsupported attributes' do
+        before { organization.settings.instance_variable_set :@saraza, 5 }
+
+        it('they get ignored') { expect(organization.settings.as_json).not_to include('saraza') }
+      end
+    end
   end
 end

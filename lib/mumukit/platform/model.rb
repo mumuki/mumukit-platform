@@ -22,6 +22,10 @@ class Mumukit::Platform::Model
     define_singleton_method :parse do |hash|
       hash ? new(hash.slice(*keys)) : new
     end
+
+    define_method :as_json do |options = {}|
+      super(options).slice(*keys.map(&:to_s))
+    end
   end
 
   # Define the attribute readers for the model,
