@@ -20,6 +20,7 @@ module Mumukit::Platform::Organization::Helpers
              :login_methods=,
              :login_provider,
              :login_provider=,
+             :login_provider_object,
              :provider_settings,
              :provider_settings=,
              :login_settings,
