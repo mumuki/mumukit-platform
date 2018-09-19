@@ -11,58 +11,9 @@ module Mumukit::Platform::Organization::Helpers
   #  * theme
 
   included do
-    delegate :theme_stylesheet,
-             :theme_stylesheet=,
-             :extension_javascript,
-             :extension_javascript=, to: :theme
-
-    delegate :login_methods,
-             :login_methods=,
-             :login_provider,
-             :login_provider=,
-             :provider_settings,
-             :provider_settings=,
-             :login_settings,
-             :feedback_suggestions_enabled?,
-             :feedback_suggestions_enabled=,
-             :raise_hand_enabled?,
-             :raise_hand_enabled=,
-             :forum_enabled?,
-             :forum_enabled=,
-             :report_issue_enabled?,
-             :report_issue_enabled=,
-             :public?,
-             :public=,
-             :embeddable?,
-             :embeddable=,
-             :immersive?,
-             :immersive=,
-             :private?, to: :settings
-
-    delegate :logo_url,
-             :logo_url=,
-             :banner_url,
-             :banner_url=,
-             :open_graph_image_url,
-             :open_graph_image_url=,
-             :favicon_url,
-             :favicon_url=,
-             :breadcrumb_image_url,
-             :breadcrumb_image_url=,
-             :locale,
-             :locale=,
-             :locale_json,
-             :description,
-             :description=,
-             :community_link,
-             :community_link=,
-             :terms_of_service,
-             :terms_of_service=,
-             :contact_email,
-             :contact_email=,
-             :errors_explanations,
-             :errors_explanations=, to: :profile
-
+    delegate *Mumukit::Platform::Organization::Theme.accessors, to: :theme
+    delegate *Mumukit::Platform::Organization::Settings.accessors, :private?, to: :settings
+    delegate *Mumukit::Platform::Organization::Profile.accessors, :locale_json, to: :profile
   end
 
   def platform_class_name

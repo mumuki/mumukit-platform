@@ -9,22 +9,30 @@ class Mumukit::Platform::Model
 
   ## Accessors
 
-  def self.model_attr_accessor(*keys)
-    bools, raws = keys.partition { |it| it.to_s.end_with? '?' }
+  def self.model_attr_accessor(*readers)
+    bools, raws = readers.partition { |it| it.to_s.end_with? '?' }
     raw_bools = bools.map { |it| it.to_s[0..-2].to_sym }
-    keys = raws + raw_bools
+    attributes = raws + raw_bools
 
-    define_attr_readers keys, raw_bools
-    define_attr_writers keys, raw_bools
+    define_attr_readers attributes, raw_bools
+    define_attr_writers attributes, raw_bools
 
     # Parses model from an event.
-    # Only allowed keys are accepted
+    # Only allowed attributes are accepted
     define_singleton_method :parse do |hash|
-      hash ? new(hash.slice(*keys)) : new
+      hash ? new(hash.slice(*attributes)) : new
     end
 
     define_method :as_json do |options = {}|
-      super(options).slice(*keys.map(&:to_s))
+      super(options).slice(*attributes.map(&:to_s))
+    end
+
+    define_singleton_method(:attributes) do
+      attributes
+    end
+
+    define_singleton_method(:accessors) do
+      readers + attributes.map { |it| "#{it}=".to_sym }
     end
   end
 
