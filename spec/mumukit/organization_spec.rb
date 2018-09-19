@@ -34,7 +34,7 @@ describe Mumukit::Platform::Organization do
         immersive: false,
         login_methods: %w{facebook twitter google},
         login_provider: 'google',
-        provider_settings: { token: '123' }
+        login_provider_settings: { token: '123' }
       },
       profile: {
         contact_email: 'issues@mumuki.io',
@@ -91,7 +91,7 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.login_provider).to eq 'google' }
-        it { expect(subject.provider_settings).to eq(token: '123') }
+        it { expect(subject.login_provider_settings).to eq(token: '123') }
         it { expect(subject.raise_hand_enabled?).to be true }
         it { expect(subject.report_issue_enabled?).to be true }
         it { expect(subject.forum_enabled?).to be true }
