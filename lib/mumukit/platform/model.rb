@@ -3,6 +3,11 @@ require 'active_model'
 class Mumukit::Platform::Model
   include ActiveModel::Model
 
+  class_attribute :readers, :attributes
+
+  self.readers = []
+  self.attributes = []
+
   def empty?
     as_json.empty?
   end
@@ -14,26 +19,25 @@ class Mumukit::Platform::Model
     raw_bools = bools.map { |it| it.to_s[0..-2].to_sym }
     attributes = raws + raw_bools
 
+    self.readers += readers
+    self.attributes += raws + raw_bools
+
     define_attr_readers attributes, raw_bools
-    define_attr_writers attributes, raw_bools
+    define_attr_writers raws, raw_bools
+  end
 
-    # Parses model from an event.
-    # Only allowed attributes are accepted
-    define_singleton_method :parse do |hash|
-      hash ? new(hash.slice(*attributes)) : new
-    end
+  # Parses model from an event.
+  # Only allowed attributes are accepted
+  def self.parse(hash)
+    hash ? new(hash.slice(*self.attributes)) : new
+  end
 
-    define_method :as_json do |options = {}|
-      super(options).slice(*attributes.map(&:to_s))
-    end
+  def as_json(options = {})
+    super(options).slice(*self.class.attributes.map(&:to_s))
+  end
 
-    define_singleton_method(:attributes) do
-      attributes
-    end
-
-    define_singleton_method(:accessors) do
-      readers + attributes.map { |it| "#{it}=".to_sym }
-    end
+  def self.accessors
+    self.readers + self.attributes.map { |it| "#{it}=".to_sym }
   end
 
   # Define the attribute readers for the model,
