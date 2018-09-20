@@ -12,7 +12,7 @@ module Mumukit::Platform::Organization::Helpers
 
   included do
     delegate *Mumukit::Platform::Organization::Theme.accessors, to: :theme
-    delegate *Mumukit::Platform::Organization::Settings.accessors, :private?, to: :settings
+    delegate *Mumukit::Platform::Organization::Settings.accessors, :private?, :login_settings, to: :settings
     delegate *Mumukit::Platform::Organization::Profile.accessors, :locale_json, to: :profile
   end
 
