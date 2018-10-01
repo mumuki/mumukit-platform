@@ -15,7 +15,7 @@ describe Mumukit::Platform::Application do
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000', mapping).organic_url('bar')).to eq 'http://bar.foo.com:3000' }
     end
 
-    context 'with subdomain mapping strategy' do
+    context 'with path mapping strategy' do
       let(:mapping) { Mumukit::Platform::OrganizationMapping::Path }
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000', mapping).organic_url('bar')).to eq 'http://foo.com:3000/bar/' }
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/foo', mapping).organic_url('bar')).to eq 'http://foo.com:3000/bar/foo' }

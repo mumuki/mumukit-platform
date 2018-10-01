@@ -5,11 +5,7 @@ class URI::HTTP
     else
       new_host = "#{subdomain}.#{host}"
     end
-    self.class.build(scheme: scheme,
-                    host: new_host,
-                    path: path,
-                    query: query,
-                    port: port)
+    rebuild(host: new_host)
   end
 
   def subroute(route)
@@ -18,11 +14,17 @@ class URI::HTTP
     else
       new_path = "/#{route}/#{path}"
     end
-    self.class.build(scheme: scheme,
-                    host: host,
-                    path: new_path,
-                    query: query,
-                    port: port)
+    rebuild(path: new_path)
+  end
+
+  def rebuild(updates)
+    self.class.build({
+      scheme: scheme,
+      host: host,
+      path: path,
+      query: query,
+      port: port,
+      fragment: fragment}.merge(updates))
   end
 
   def url_for(path)
