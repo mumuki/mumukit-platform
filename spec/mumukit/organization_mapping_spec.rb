@@ -21,6 +21,11 @@ describe Mumukit::Platform::OrganizationMapping do
   describe Mumukit::Platform::OrganizationMapping::Subdomain do
     subject { Mumukit::Platform::OrganizationMapping::Subdomain }
 
+    describe '#path_under_namespace?' do
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'foo').to be false }
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'central').to be true }
+    end
+
     context 'on non central' do
       let(:request) { new_rack_request 'http', 'foo.something.com' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
@@ -41,6 +46,13 @@ describe Mumukit::Platform::OrganizationMapping do
 
   describe Mumukit::Platform::OrganizationMapping::Path do
     subject { Mumukit::Platform::OrganizationMapping::Path }
+
+    describe '#path_under_namespace?' do
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'foo').to be true }
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'central').to be false }
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'bar').to be false }
+      it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'baz').to be false }
+    end
 
     context 'on non central' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/foo' }

@@ -34,6 +34,10 @@ module Mumukit::Platform::OrganizationMapping
     def self.organic_uri(uri, organization)
       uri.subdominate(organization)
     end
+
+    def self.path_under_namespace?(_organization_name, path, namespace)
+      path.start_with? "/#{namespace}/"
+    end
   end
 
   module Path
@@ -51,6 +55,10 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.organic_uri(uri, organization)
       uri.subroute(organization)
+    end
+
+    def self.path_under_namespace?(organization_name, path, namespace)
+      path.start_with? "/#{organization_name}/#{namespace}/"
     end
   end
 end
