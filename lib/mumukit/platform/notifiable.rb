@@ -8,6 +8,6 @@ module Mumukit::Platform::Notifiable
   end
 
   def as_platform_event
-    { platform_class_name.downcase => as_platform_json }
+    { platform_class_name.downcase => to_resource_h }
   end
 end

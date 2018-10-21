@@ -57,7 +57,7 @@ describe Mumukit::Platform::Organization do
   end
 
   it { expect(organization.platform_event_name(:created)).to eq 'OrganizationCreated' }
-  it { expect(organization.as_platform_event).to eq organization: organization.as_platform_json }
+  it { expect(organization.as_platform_event).to eq organization: organization.to_resource_h }
 
   describe '#current' do
     context 'when switched' do
@@ -201,7 +201,7 @@ describe Mumukit::Platform::Organization do
       it { expect(organization.domain).to eq 'orga.sample.app.com' }
     end
 
-    describe 'as_platform_json' do
+    describe 'to_resource_h' do
       let(:platform_json) { {
           name: 'orga',
           book: 'the/book',
@@ -218,7 +218,7 @@ describe Mumukit::Platform::Organization do
             immersive: true
           }
       } }
-      it { expect(organization.as_platform_json).to json_eq platform_json }
+      it { expect(organization.to_resource_h).to json_eq platform_json }
     end
 
     describe '#valid_name?' do

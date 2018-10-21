@@ -82,7 +82,7 @@ module Mumukit::Platform::Organization::Helpers
     json.slice(:name, :book, :profile, :settings, :theme)
   end
 
-  def as_platform_json
+  def to_resource_h
     {
       name: name,
       book: book.slug,
