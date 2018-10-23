@@ -48,6 +48,10 @@ module Mumukit::Platform::Organization::Helpers
     Mumukit::Platform.application.organic_url_for(name, path)
   end
 
+  def url
+    url_for '/'
+  end
+
   def domain
     Mumukit::Platform.application.organic_domain(name)
   end

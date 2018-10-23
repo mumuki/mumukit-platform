@@ -185,7 +185,17 @@ describe Mumukit::Platform::Organization do
       it { expect(organization.login_methods).to eq ['user_pass'] }
     end
     describe '#url_for' do
-      it { expect(organization.url_for 'zaraza').to eq 'http://orga.sample.app.com/zaraza' }
+      context 'with subdomain mapping' do
+        it { expect(organization.url_for 'zaraza').to eq 'http://orga.sample.app.com/zaraza' }
+        it { expect(organization.url_for '/zaraza').to eq 'http://orga.sample.app.com/zaraza' }
+      end
+
+      context 'with path mapping' do
+        before { allow_any_instance_of(Mumukit::Platform::Application::Organic).to receive(:organization_mapping).and_return(Mumukit::Platform::OrganizationMapping::Path) }
+
+        it { expect(organization.url_for 'zaraza').to eq 'http://sample.app.com/orga/zaraza' }
+        it { expect(organization.url_for '/zaraza').to eq 'http://sample.app.com/orga/zaraza' }
+      end
     end
     describe '#domain' do
       it { expect(organization.domain).to eq 'orga.sample.app.com' }

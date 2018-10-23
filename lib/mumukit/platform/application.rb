@@ -28,7 +28,11 @@ class Mumukit::Platform::Application
   end
 
   def organic_url_for(organization, path)
-    organic_uri(organization).url_for(path)
+    organic_uri(organization).url_for(relative_path path)
+  end
+
+  def relative_path(path)
+    path.start_with?('/') ? path[1..-1] : path
   end
 
   class Basic < Mumukit::Platform::Application
@@ -38,13 +42,15 @@ class Mumukit::Platform::Application
   end
 
   class Organic < Mumukit::Platform::Application
+    attr_reader :organization_mapping
+
     def initialize(url, organization_mapping)
       super(url)
       @organization_mapping = organization_mapping
     end
 
     def organic_uri(organization)
-      @organization_mapping.organic_uri(uri, organization)
+      organization_mapping.organic_uri(uri, organization)
     end
   end
 end
