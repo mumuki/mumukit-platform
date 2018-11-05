@@ -45,7 +45,7 @@ describe Mumukit::Platform::User do
     it { expect(user.writer?).to be false }
     it { expect(user.student?).to be false }
     it { expect(user.platform_event_name(:changed)).to eq 'UserChanged' }
-    it { expect(user.as_platform_event).to eq user: user.as_platform_json }
+    it { expect(user.as_platform_event).to eq user: user.to_resource_h }
 
     describe 'make_student_of!' do
       before { user.make_student_of! organization.slug }
@@ -57,7 +57,7 @@ describe Mumukit::Platform::User do
       it { expect(user.student_of? struct(slug: 'bar/_')).to be false }
     end
 
-    describe 'as_platform_json' do
+    describe 'to_resource_h' do
       let(:json) { {
         uid: 'foo@bar.com',
         image_url: 'image.png',
@@ -65,7 +65,7 @@ describe Mumukit::Platform::User do
         first_name: 'Jon',
         last_name: 'Doe',
         permissions: {}} }
-      it { expect(user.as_platform_json).to json_eq json }
+      it { expect(user.to_resource_h).to json_eq json }
     end
 
     describe 'student_here?' do

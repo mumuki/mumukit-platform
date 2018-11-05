@@ -101,7 +101,7 @@ module Mumukit::Platform::User::Helpers
     json.slice(:uid, :social_id, :image_url, :email, :first_name, :last_name, :permissions)
   end
 
-  def as_platform_json
+  def to_resource_h
     {
       uid: uid,
       social_id: social_id,
