@@ -7,12 +7,9 @@ require_relative './platform/version'
 require_relative './platform/uri'
 
 module Mumukit::Platform
-  CORE_MODELS = [:organization, :user, :course]
+  extend Mumukit::Core::Configurable
 
-  def self.configure
-    @config ||= defaults
-    yield @config
-  end
+  CORE_MODELS = [:organization, :user, :course]
 
   def self.defaults
     struct.tap do |config|
@@ -26,10 +23,6 @@ module Mumukit::Platform
       config.classroom_api_url = ENV['MUMUKI_CLASSROOM_API_URL'] || "http://classroom-api.#{domain}"
       config.organization_mapping = Mumukit::Platform::OrganizationMapping.from_env
     end
-  end
-
-  def self.config
-    @config
   end
 
   CORE_MODELS.each do |klass|
