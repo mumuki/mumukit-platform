@@ -202,7 +202,7 @@ describe Mumukit::Platform::Organization do
     end
 
     describe 'to_resource_h' do
-      let(:platform_json) { {
+      let(:resource_h) { {
           name: 'orga',
           book: 'the/book',
           profile: {
@@ -218,7 +218,7 @@ describe Mumukit::Platform::Organization do
             immersive: true
           }
       } }
-      it { expect(organization.to_resource_h).to json_eq platform_json }
+      it { expect(organization.to_resource_h).to json_eq resource_h }
     end
 
     describe '#valid_name?' do
