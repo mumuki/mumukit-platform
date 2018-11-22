@@ -95,10 +95,10 @@ module Mumukit::Platform::User::Helpers
     uid
   end
 
-  ## Platform JSON
+  ## Resource Hash
 
-  def self.slice_platform_json(json)
-    json.slice(:uid, :social_id, :image_url, :email, :first_name, :last_name, :permissions)
+  def self.slice_resource_h(resource_h)
+    resource_h.slice(:uid, :social_id, :image_url, :email, :first_name, :last_name, :permissions)
   end
 
   def to_resource_h
@@ -110,10 +110,10 @@ module Mumukit::Platform::User::Helpers
       first_name: first_name,
       last_name: last_name,
       permissions: permissions
-    }.except(*protected_platform_fields).compact
+    }.except(*protected_resource_fields).compact
   end
 
-  def protected_platform_fields
+  def protected_resource_fields
     []
   end
 end
