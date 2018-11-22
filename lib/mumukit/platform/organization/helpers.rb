@@ -76,10 +76,10 @@ module Mumukit::Platform::Organization::Helpers
     /([-a-z0-9_]+(\.[-a-z0-9_]+)*)?/
   end
 
-  ## Platform JSON
+  ## Resource Hash
 
-  def self.slice_platform_json(json)
-    json.slice(:name, :book, :profile, :settings, :theme)
+  def self.slice_resource_h(resource_h)
+    resource_h.slice(:name, :book, :profile, :settings, :theme)
   end
 
   def to_resource_h
@@ -89,10 +89,10 @@ module Mumukit::Platform::Organization::Helpers
       profile: profile,
       settings: settings,
       theme: theme
-    }.except(*protected_platform_fields).compact
+    }.except(*protected_resource_fields).compact
   end
 
-  def protected_platform_fields
+  def protected_resource_fields
     []
   end
 

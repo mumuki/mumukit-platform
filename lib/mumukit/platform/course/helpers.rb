@@ -20,10 +20,10 @@ module Mumukit::Platform::Course::Helpers
     slug
   end
 
-  ## Platform JSON
+  ## Resource Hash
 
-  def self.slice_platform_json(json)
-    json.slice(:slug, :shifts, :code, :days, :period, :description)
+  def self.slice_resource_h(resource_h)
+    resource_h.slice(:slug, :shifts, :code, :days, :period, :description)
   end
 
   def to_resource_h
@@ -34,10 +34,10 @@ module Mumukit::Platform::Course::Helpers
       days: days,
       period: period,
       description: description
-    }.except(*protected_platform_fields).compact
+    }.except(*protected_resource_fields).compact
   end
 
-  def protected_platform_fields
+  def protected_resource_fields
     []
   end
 end
