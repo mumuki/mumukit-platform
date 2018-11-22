@@ -6,8 +6,8 @@ describe Mumukit::Platform::Application do
   it { expect(Mumukit::Platform.bibliotheca_ui.url).to eq 'http://bibliotheca.localmumuki.io' }
   it { expect(Mumukit::Platform.bibliotheca_ui.domain).to eq 'bibliotheca.localmumuki.io' }
 
-  it { expect(Mumukit::Platform.url_for '/bar').to eq 'http://sample.app.com/bar' }
-  it { expect(Mumukit::Platform.organic_url_for 'orga', '/bar').to eq 'http://orga.sample.app.com/bar' }
+  it { expect(Mumukit::Platform.application.url_for '/bar').to eq 'http://sample.app.com/bar' }
+  it { expect(Mumukit::Platform.application.organic_url_for 'orga', '/bar').to eq 'http://orga.sample.app.com/bar' }
 
   describe Mumukit::Platform::Application::Basic do
     context 'with subdomain mapping strategy' do
