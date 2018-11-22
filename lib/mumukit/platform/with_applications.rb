@@ -6,16 +6,16 @@ module Mumukit::Platform::WithApplications
     Mumukit::Platform::Application::Organic.new config.laboratory_url, organization_mapping
   end
 
-  def classroom
-    Mumukit::Platform::Application::Organic.new config.classroom_url, organization_mapping
+  def classroom_ui
+    Mumukit::Platform::Application::Organic.new config.classroom_ui_url, organization_mapping
   end
 
   def classroom_api
     Mumukit::Platform::Application::Organic.new config.classroom_api_url, organization_mapping
   end
 
-  def bibliotheca
-    Mumukit::Platform::Application::Basic.new config.bibliotheca_url
+  def bibliotheca_ui
+    Mumukit::Platform::Application::Basic.new config.bibliotheca_ui_url
   end
 
   def bibliotheca_api
