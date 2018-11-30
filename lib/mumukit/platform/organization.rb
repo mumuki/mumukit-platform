@@ -12,6 +12,10 @@ module Mumukit::Platform::Organization
     Thread.current[:organization] || raise('organization not selected')
   end
 
+  def self.current?
+    !!Thread.current[:organization]
+  end
+
   def self.current_locale
     Thread.current[:organization]&.locale || 'en'
   end
