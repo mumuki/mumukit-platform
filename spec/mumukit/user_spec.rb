@@ -44,7 +44,7 @@ describe Mumukit::Platform::User do
     it { expect(user.full_name).to eq 'Jon Doe' }
     it { expect(user.writer?).to be false }
     it { expect(user.student?).to be false }
-    it { expect(user.platform_event_name(:changed)).to eq 'UserChanged' }
+    it { expect(user.platform_event_name).to eq 'UserChanged' }
     it { expect(user.as_platform_event).to eq user: user.to_resource_h }
 
     describe 'make_student_of!' do

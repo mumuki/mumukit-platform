@@ -1,6 +1,5 @@
 module Mumukit::Platform::Organization::Helpers
   extend ActiveSupport::Concern
-  include Mumukit::Platform::Notifiable
 
   ## Implementors must declare the following methods:
   #
@@ -14,10 +13,6 @@ module Mumukit::Platform::Organization::Helpers
     delegate *Mumukit::Platform::Organization::Theme.accessors, to: :theme
     delegate *Mumukit::Platform::Organization::Settings.accessors, :private?, :login_settings, to: :settings
     delegate *Mumukit::Platform::Organization::Profile.accessors, :locale_json, to: :profile
-  end
-
-  def platform_class_name
-    :Organization
   end
 
   def slug

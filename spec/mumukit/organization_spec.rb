@@ -56,7 +56,7 @@ describe Mumukit::Platform::Organization do
       open_graph_image_url: 'http://mumuki.io/new-og-image.png' }
   end
 
-  it { expect(organization.platform_event_name(:created)).to eq 'OrganizationCreated' }
+  it { expect(organization.platform_event_name).to eq 'OrganizationChanged' }
   it { expect(organization.as_platform_event).to eq organization: organization.to_resource_h }
 
   describe '#current' do
