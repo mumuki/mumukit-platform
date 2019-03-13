@@ -89,12 +89,12 @@ describe Mumukit::Platform::User do
       end
     end
 
-    describe 'accessible_organizations' do
+    describe 'student_granted_organizations' do
       before { Mumukit::Platform.config.organization_class = class_double('UserSpecDemoOrganization') }
 
       context 'no organization' do
-        it { expect(user.accessible_organizations).to eq [] }
-        it { expect(user.has_accessible_organizations?).to be false }
+        it { expect(user.student_granted_organizations).to eq [] }
+        it { expect(user.has_student_granted_organizations?).to be false }
         it { expect(user.has_main_organization?).to be false }
         it { expect(user.has_immersive_main_organization?).to be false }
       end
@@ -103,8 +103,8 @@ describe Mumukit::Platform::User do
         before { user.make_student_of! organization.slug }
         before { expect(Mumukit::Platform.organization_class).to receive(:find_by_name!).and_return(organization)}
 
-        it { expect(user.accessible_organizations).to eq [organization] }
-        it { expect(user.has_accessible_organizations?).to be true }
+        it { expect(user.student_granted_organizations).to eq [organization] }
+        it { expect(user.has_student_granted_organizations?).to be true }
         it { expect(user.has_main_organization?).to be true }
         it { expect(user.has_immersive_main_organization?).to be false }
 
