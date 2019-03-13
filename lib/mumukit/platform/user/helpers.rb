@@ -75,15 +75,15 @@ module Mumukit::Platform::User::Helpers
     end.compact
   end
 
-  alias_method :accessible_organizations, :student_granted_organizations
-  deprecate :accessible_organizations, :student_granted_organizations, 2019, 6
-
   def has_student_granted_organizations?
     student_granted_organizations.present?
   end
 
-  alias_method :has_accessible_organizations?, :has_student_granted_organizations?
-  deprecate :has_accessible_organizations?, :has_student_granted_organizations?, 2019, 6
+  [[:accessible_organizations, :student_granted_organizations],
+   [:has_accessible_organizations?, :has_student_granted_organizations?]].each do |it, replacement|
+    alias_method it, replacement
+    deprecate it, replacement, 2019, 6
+  end
 
   def main_organization
     student_granted_organizations.first
