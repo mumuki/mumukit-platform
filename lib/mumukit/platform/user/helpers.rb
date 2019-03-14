@@ -2,6 +2,8 @@ module Mumukit::Platform::User::Helpers
   include Mumukit::Auth::Roles
   include Mumukit::Platform::Notifiable
 
+  extend Gem::Deprecate
+
   ## Implementors must declare the following methods:
   #
   #  * permissions
@@ -67,22 +69,28 @@ module Mumukit::Platform::User::Helpers
 
   ## Accesible organizations
 
-  def accessible_organizations
-    permissions.accessible_organizations.map do |org|
+  def student_granted_organizations
+    permissions.student_granted_organizations.map do |org|
       Mumukit::Platform::Organization.find_by_name!(org) rescue nil
     end.compact
   end
 
-  def has_accessible_organizations?
-    accessible_organizations.present?
+  def has_student_granted_organizations?
+    student_granted_organizations.present?
+  end
+
+  [[:accessible_organizations, :student_granted_organizations],
+   [:has_accessible_organizations?, :has_student_granted_organizations?]].each do |it, replacement|
+    alias_method it, replacement
+    deprecate it, replacement, 2019, 6
   end
 
   def main_organization
-    accessible_organizations.first
+    student_granted_organizations.first
   end
 
   def has_main_organization?
-    accessible_organizations.length == 1
+    student_granted_organizations.length == 1
   end
 
   def has_immersive_main_organization?
