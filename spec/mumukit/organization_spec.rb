@@ -93,6 +93,7 @@ describe Mumukit::Platform::Organization do
 
         it { expect(subject.login_methods).to eq %w{facebook twitter google} }
         it { expect(subject.login_provider).to eq 'google' }
+        it { expect(subject.forum_discussions_minimal_role).to be :student }
         it { expect(subject.login_provider_settings).to eq(token: '123') }
         it { expect(subject.raise_hand_enabled?).to be true }
         it { expect(subject.report_issue_enabled?).to be true }
@@ -112,12 +113,14 @@ describe Mumukit::Platform::Organization do
                             raise_hand_enabled: false,
                             report_issue_enabled: false,
                             forum_enabled: false,
+                            forum_discussions_minimal_role: 'teacher',
                             login_methods: [:google]) }
         let(:dump) { Mumukit::Platform::Organization::Settings.dump(settings) }
 
         subject { Mumukit::Platform::Organization::Settings.load(dump) }
 
         it { expect(subject.login_methods).to eq %w{google} }
+        it { expect(subject.forum_discussions_minimal_role).to be :teacher }
         it { expect(subject.raise_hand_enabled?).to be false }
         it { expect(subject.forum_enabled?).to be false }
         it { expect(subject.report_issue_enabled?).to be false }
