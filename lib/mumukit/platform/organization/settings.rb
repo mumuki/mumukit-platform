@@ -9,6 +9,7 @@ class Mumukit::Platform::Organization::Settings < Mumukit::Platform::Model
                       :embeddable?,
                       :immersive?,
                       :forum_enabled?,
+                      :forum_private?,
                       :report_issue_enabled?
 
   def private?
