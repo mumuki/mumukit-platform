@@ -34,7 +34,7 @@ module Mumukit::Platform::User::Helpers
     self.permissions = permissions.merge(new_permissions)
   end
 
-  [:student, :teacher, :headmaster, :janitor].each do |role|
+  (Mumukit::Auth::Roles::ROLES - [:writer, :editor, :owner]).each do |role|
     role_of = "#{role}_of?"
     role_here = "#{role}_here?"
 
