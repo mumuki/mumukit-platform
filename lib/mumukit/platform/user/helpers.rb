@@ -52,7 +52,7 @@ module Mumukit::Platform::User::Helpers
   end
 
   # Tells whether this user has forum discusser permissions in
-  # of the given organization
+  # the given organization
   def discusser_of?(organization)
     has_permission? organization.forum_discussions_minimal_role, organization.slug
   end
