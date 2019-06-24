@@ -9,10 +9,10 @@ module Mumukit::Platform::OrganizationMapping
 
   def self.parse(name)
     mapping = name.try { |it| it.strip.downcase }
-    if mapping.blank? || mapping == 'subdomain'
-      Subdomain
-    elsif mapping == 'path'
+    if mapping.blank? || mapping == 'path'
       Path
+    elsif mapping == 'subdomain'
+      Subdomain
     else
       raise "Unrecognized organization mapping #{mapping}"
     end

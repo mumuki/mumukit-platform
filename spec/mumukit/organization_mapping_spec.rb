@@ -4,7 +4,7 @@ describe Mumukit::Platform::OrganizationMapping do
 
   describe '.parse' do
     it { expect(Mumukit::Platform::OrganizationMapping.parse('subdomain')).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
-    it { expect(Mumukit::Platform::OrganizationMapping.parse('')).to eq Mumukit::Platform::OrganizationMapping::Subdomain }
+    it { expect(Mumukit::Platform::OrganizationMapping.parse('')).to eq Mumukit::Platform::OrganizationMapping::Path }
     it { expect(Mumukit::Platform::OrganizationMapping.parse('path')).to eq Mumukit::Platform::OrganizationMapping::Path }
     it { expect(Mumukit::Platform::OrganizationMapping.parse('PATH')).to eq Mumukit::Platform::OrganizationMapping::Path }
     it { expect { Mumukit::Platform::OrganizationMapping.parse('foo') }.to raise_error }
