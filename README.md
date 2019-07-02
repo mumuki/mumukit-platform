@@ -23,6 +23,23 @@ Or install it yourself as:
 
     $ gem install mumukit-platform
 
+## Requeriments
+
+In order to properly use this gem, you must declare _organization_, _course_ and _user_ classes, and implement some required methods:
+
+ _organization_:
+   * `#name`
+   * `#locale`
+   * `.find_by_name!`
+
+ _user_:
+   * `.for_profile`
+   * `.find_by_uid!`
+
+ _course_:
+   * `.find_by_slug!`
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/mumuki/mumukit-platform. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
@@ -30,4 +47,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/mumuki
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
