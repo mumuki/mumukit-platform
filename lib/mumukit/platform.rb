@@ -26,6 +26,20 @@ module Mumukit::Platform
   end
 
   CORE_MODELS.each do |klass|
+    # Configured classes must implement the following methods:
+    #
+    # _organization_:
+    #   * `#name`
+    #   * `#locale`
+    #   * `.find_by_name!`
+    #
+    # _user_:
+    #   * `.for_profile`
+    #   * `.find_by_uid!`
+    #
+    # _course_:
+    #   * `.find_by_slug!`
+    #
     define_singleton_method("#{klass}_class") do
       begin
         config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
@@ -42,8 +56,8 @@ require_relative './platform/domain'
 require_relative './platform/model'
 require_relative './platform/locale'
 require_relative './platform/course'
-require_relative './platform/user'
 require_relative './platform/organization'
+require_relative './platform/user'
 require_relative './platform/organization_mapping'
 require_relative './platform/application'
 require_relative './platform/web_framework'
