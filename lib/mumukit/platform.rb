@@ -34,7 +34,6 @@ module Mumukit::Platform
     #   * `.find_by_name!`
     #
     # _user_:
-    #   * `.for_profile`
     #   * `.find_by_uid!`
     #
     # _course_:
