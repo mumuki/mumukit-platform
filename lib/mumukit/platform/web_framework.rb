@@ -21,7 +21,7 @@ module Mumukit::Platform::WebFramework
     def self.tenant_scope_options
       {
           defaults: { tenant: lazy_string { Mumukit::Platform.current_organization_name } },
-          constraints: { tenant: Mumukit::Platform::Organization::Helpers.valid_name_regex }
+          constraints: { tenant: Mumukit::Platform::Organization.valid_name_regex }
       }
     end
   end
