@@ -1,20 +1,5 @@
 module Mumukit::Platform::Organization
-  def self.switch!(organization)
-    raise 'Organization must not be nil' unless organization
-    Thread.current[:organization] = organization
-  end
-
-  def self.leave!
-    Thread.current[:organization] = nil
-  end
-
-  def self.current
-    Thread.current[:organization] || raise('organization not selected')
-  end
-
-  def self.current?
-    !!Thread.current[:organization]
-  end
+  extend Mumukit::Platform::Global
 
   def self.current_locale
     Thread.current[:organization]&.locale || 'en'
@@ -24,6 +9,9 @@ module Mumukit::Platform::Organization
     Mumukit::Platform.organization_class.find_by_name!(name)
   end
 
+  def self.__global_thread_variable_key__
+    :organization
+  end
 
   ## Name validation
 
