@@ -50,7 +50,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organization_name(request, _domain)
-      request.path.split('/')[1]
+      request.path_info.split('/')[1]
     end
 
     def self.organic_uri(uri, organization)
