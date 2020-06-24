@@ -51,6 +51,7 @@ end
 
 require_relative './platform/notifiable'
 
+require_relative './platform/global'
 require_relative './platform/domain'
 require_relative './platform/model'
 require_relative './platform/locale'
