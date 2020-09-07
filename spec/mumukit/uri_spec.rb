@@ -5,7 +5,7 @@ def add_extra_subdomain(original_url)
 end
 
 def add_extra_path(original_url)
-  URI(original_url).subroute('extra').to_s
+  URI(original_url).tenantize('extra').to_s
 end
 
 describe URI do
@@ -19,13 +19,12 @@ describe URI do
     it { expect(add_extra_subdomain('http://foo.bar.com/foo?z=3')).to eq 'http://extra.foo.bar.com/foo?z=3' }
     it { expect(add_extra_subdomain('http://foo.bar.com:3000/foo?z=3')).to eq 'http://extra.foo.bar.com:3000/foo?z=3' }
   end
-  describe '#subroute' do
+  describe '#tenantize' do
     it { expect(add_extra_path('https://foo.bar')).to eq 'https://foo.bar/extra/' }
     it { expect(add_extra_path('http://foo.bar')).to eq 'http://foo.bar/extra/' }
-    it { expect(add_extra_path('http://foo.bar/zaraza')).to eq 'http://foo.bar/extra/zaraza' }
+    it { expect(add_extra_path('http://foo.bar/zaraza')).to eq 'http://foo.bar/zaraza/extra/' }
 
     it { expect(add_extra_path('http://foo.bar.com/')).to eq 'http://foo.bar.com/extra/' }
-    it { expect(add_extra_path('http://foo.bar.com/foo?z=3')).to eq 'http://foo.bar.com/extra/foo?z=3' }
-    it { expect(add_extra_path('http://foo.bar.com:3000/foo?z=3')).to eq 'http://foo.bar.com:3000/extra/foo?z=3' }
+    it { expect(add_extra_path('http://foo.bar.com/foo')).to eq 'http://foo.bar.com/foo/extra/' }
   end
 end

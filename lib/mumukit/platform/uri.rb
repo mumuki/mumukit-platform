@@ -8,11 +8,11 @@ class URI::HTTP
     rebuild(host: new_host)
   end
 
-  def subroute(route)
-    if path.start_with? '/'
-      new_path = "/#{route}#{path}"
+  def tenantize(route)
+    if path.end_with? '/'
+      new_path = "#{path}#{route}/"
     else
-      new_path = "/#{route}/#{path}"
+      new_path = "#{path}/#{route}/"
     end
     rebuild(path: new_path)
   end
