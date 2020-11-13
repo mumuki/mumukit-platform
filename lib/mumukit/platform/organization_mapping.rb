@@ -38,9 +38,17 @@ module Mumukit::Platform::OrganizationMapping
     def self.path_under_namespace?(_organization_name, path, namespace)
       path.start_with? "/#{namespace}/"
     end
+
+    def self.inorganic_path_for(request)
+      request.path_info
+    end
   end
 
   module Path
+    def self.path_for(request)
+      request.path_info
+    end
+
     def self.implicit_organization?(_request, _domain)
       false
     end
@@ -50,7 +58,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organization_name(request, _domain)
-      request.path_info.split('/')[1]
+      path_for(request).split('/')[1]
     end
 
     def self.organic_uri(uri, organization)
@@ -59,6 +67,10 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.path_under_namespace?(organization_name, path, namespace)
       path.start_with? "/#{organization_name}/#{namespace}/"
+    end
+
+    def self.inorganic_path_for(request)
+      path_for(request).split('/').drop(2).join('/')
     end
   end
 end
