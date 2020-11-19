@@ -26,5 +26,7 @@ describe URI do
 
     it { expect(add_extra_path('http://foo.bar.com/')).to eq 'http://foo.bar.com/extra/' }
     it { expect(add_extra_path('http://foo.bar.com/foo')).to eq 'http://foo.bar.com/foo/extra/' }
+    it { expect(add_extra_path('http://foo.bar.com/foo?z=3')).to eq 'http://foo.bar.com/foo/extra/?z=3' }
+    it { expect(add_extra_path('http://foo.bar.com:3000/foo?z=3')).to eq 'http://foo.bar.com:3000/foo/extra/?z=3' }
   end
 end
