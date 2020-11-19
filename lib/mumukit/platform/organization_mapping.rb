@@ -54,7 +54,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organic_uri(uri, organization)
-      uri.subroute(organization)
+      uri.tenantize organization
     end
 
     def self.path_under_namespace?(organization_name, path, namespace)
