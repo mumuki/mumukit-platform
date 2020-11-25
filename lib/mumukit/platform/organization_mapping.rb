@@ -1,3 +1,5 @@
+require 'pathname'
+
 module Mumukit::Platform::OrganizationMapping
   def self.from_env
     if ENV['RACK_ENV'] == 'test' || ENV['RAILS_ENV'] == 'test'
@@ -57,8 +59,17 @@ module Mumukit::Platform::OrganizationMapping
       framework.configure_tenant_path_routes! native, &block
     end
 
+    def self.path_composition_for(request)
+      path_segments = Pathname(path_for(request)).each_filename.to_a
+      [path_segments.delete_at(0), path_segments.join('/')]
+    end
+
     def self.organization_name(request, _domain)
-      path_for(request).split('/')[1]
+      path_composition_for(request).first
+    end
+
+    def self.inorganic_path_for(request)
+      path_composition_for(request).second
     end
 
     def self.organic_uri(uri, organization)
@@ -67,10 +78,6 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.path_under_namespace?(organization_name, path, namespace)
       path.start_with? "/#{organization_name}/#{namespace}/"
-    end
-
-    def self.inorganic_path_for(request)
-      path_for(request).split('/').drop(2).join('/')
     end
   end
 end
