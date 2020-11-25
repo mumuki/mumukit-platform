@@ -20,7 +20,15 @@ module Mumukit::Platform::OrganizationMapping
     end
   end
 
+  module Base
+    def path_for(request)
+      request.path_info
+    end
+  end
+
   module Subdomain
+    extend Base
+
     def self.implicit_organization?(request, domain)
       request.empty_subdomain_after?(domain)
     end
@@ -42,14 +50,12 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.inorganic_path_for(request)
-      request.path_info
+      path_for(request)
     end
   end
 
   module Path
-    def self.path_for(request)
-      request.path_info
-    end
+    extend Base
 
     def self.implicit_organization?(_request, _domain)
       false
@@ -60,8 +66,8 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.path_composition_for(request)
-      path_segments = Pathname(path_for(request)).each_filename.to_a
-      [path_segments.delete_at(0), path_segments.join('/')]
+      path_parts = Pathname(path_for(request)).each_filename.to_a
+      [path_parts.delete_at(0), path_parts.join('/')]
     end
 
     def self.organization_name(request, _domain)
