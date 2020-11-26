@@ -66,8 +66,8 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.path_composition_for(request)
-      path_parts = Pathname(path_for(request)).each_filename.to_a
-      [path_parts.delete_at(0), path_parts.join('/')]
+      organization, *path_parts = Pathname(path_for(request)).each_filename.to_a
+      [organization, path_parts.join('/')]
     end
 
     def self.organization_name(request, _domain)
