@@ -41,7 +41,10 @@ module Mumukit::Platform
     #
     define_singleton_method("#{klass}_class") do
       begin
-        config["#{klass}_class"] ||= config["#{klass}_class_name"].constantize
+        return config["#{klass}_class"] if config["#{klass}_class"].present?
+        config["#{klass}_class_name"].constantize.tap do |klass_instance|
+          config["#{klass}_class"] = klass_instance unless %w(RACK_ENV RAILS_ENV).any? { |it| ENV[it] == 'development' }
+        end
       rescue
         raise "You must configure your #{klass} class first"
       end
