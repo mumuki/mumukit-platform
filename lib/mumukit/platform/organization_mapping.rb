@@ -42,7 +42,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organic_uri(uri, organization)
-      uri.subdominate(organization)
+      uri.subdominate(organization, fragmented: true)
     end
 
     def self.path_under_namespace?(_organization_name, path, namespace)
@@ -79,7 +79,7 @@ module Mumukit::Platform::OrganizationMapping
     end
 
     def self.organic_uri(uri, organization)
-      uri.tenantize organization
+      uri.tenantize organization, fragmented: true
     end
 
     def self.path_under_namespace?(organization_name, path, namespace)

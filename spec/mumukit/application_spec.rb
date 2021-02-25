@@ -21,6 +21,32 @@ describe Mumukit::Platform::Application do
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/foo', mapping).organic_url('bar')).to eq 'http://foo.com:3000/foo/bar/' }
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/app/', mapping).organic_url_for('an_orga', 'some/long/path')).to eq 'http://foo.com:3000/app/an_orga/some/long/path' }
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/another_app/', mapping).organic_url_for('another_orga', 'some/long/path?with=value')).to eq 'http://foo.com:3000/another_app/another_orga/some/long/path?with=value' }
+
+      context 'with fragments' do
+        context 'with fragment-path' do
+          let(:fragmented) { Mumukit::Platform::Application::Organic.new('http://foo.com:3000/#/classroom/', mapping) }
+
+          it { expect(fragmented.url).to eq 'http://foo.com:3000/#/classroom/' }
+
+          it { expect(fragmented.organic_url('org')).to eq 'http://foo.com:3000/#/classroom/org/' }
+
+          it { expect(fragmented.organic_url_for('org', 'path')).to eq 'http://foo.com:3000/#/classroom/org/path' }
+          it { expect(fragmented.organic_url_for('org', '/path')).to eq 'http://foo.com:3000/#/classroom/org/path' }
+          it { expect(fragmented.organic_url_for('org', 'path/other')).to eq 'http://foo.com:3000/#/classroom/org/path/other' }
+        end
+
+        context 'without fragment-path' do
+          let(:fragmented) { Mumukit::Platform::Application::Organic.new('http://foo.com:3000/#', mapping) }
+
+          it { expect(fragmented.url).to eq 'http://foo.com:3000/#' }
+
+          it { expect(fragmented.organic_url('org')).to eq 'http://foo.com:3000/#/org/' }
+
+          it { expect(fragmented.organic_url_for('org', 'path')).to eq 'http://foo.com:3000/#/org/path' }
+          it { expect(fragmented.organic_url_for('org', '/path')).to eq 'http://foo.com:3000/#/org/path' }
+          it { expect(fragmented.organic_url_for('org', 'path/other')).to eq 'http://foo.com:3000/#/org/path/other' }
+        end
+      end
     end
   end
 end
