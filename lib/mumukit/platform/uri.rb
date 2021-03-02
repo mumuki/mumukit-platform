@@ -1,23 +1,30 @@
 class URI::HTTP
-  def subdominate(subdomain)
+  def subdominate(subdomain, **options)
     if host.start_with? 'www.'
       new_host = host.gsub('www.', "www.#{subdomain}.")
     else
       new_host = "#{subdomain}.#{host}"
     end
-    rebuild(host: new_host)
+    rebuild({host: new_host}, **options)
   end
 
-  def tenantize(route)
+  def tenantize(route, **options)
     if path.end_with? '/'
       new_path = "#{path}#{route}/"
     else
       new_path = "#{path}/#{route}/"
     end
-    rebuild(path: new_path)
+    rebuild({path: new_path}, **options)
   end
 
-  def rebuild(updates)
+  def rebuild(updates, fragmented: false)
+    if fragmented && fragment
+      fragment = "#{self.fragment}/#{updates[:path]}/".squeeze('/')
+      updates = updates.except(:path)
+    else
+      fragment = self.fragment
+    end
+
     self.class.build({
       scheme: scheme,
       host: host,
