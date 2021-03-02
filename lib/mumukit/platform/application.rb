@@ -29,7 +29,7 @@ class Mumukit::Platform::Application
 
   def organic_url_for(organization, path)
     uri = organic_uri(organization)
-    # warning: this code is thighly
+    # warning: this code is tightly
     # coupled to the fact that applications can only rebuild urls
     # in fragmented-mode
     if uri.fragment
