@@ -35,6 +35,10 @@ class URI::HTTP
   end
 
   def url_for(path)
-    URI.join(self, path).to_s
+    if fragment
+      to_s + path
+    else
+      URI.join(self, path).to_s
+    end
   end
 end
