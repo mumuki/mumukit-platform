@@ -28,6 +28,18 @@ describe Mumukit::Platform::Application do
       it { expect(Mumukit::Platform::Application::Organic.new('http://foo.com:3000/another_app/', mapping).organic_url_for('another_orga', 'some/long/path?with=value')).to eq 'http://foo.com:3000/another_app/another_orga/some/long/path?with=value' }
 
       context 'with fragments' do
+        context 'with prefragment-path' do
+          let(:fragmented) { Mumukit::Platform::Application::Organic.new('http://foo.com:3000/classroom/#/', mapping) }
+
+          it { expect(fragmented.url).to eq 'http://foo.com:3000/classroom/#/' }
+
+          it { expect(fragmented.organic_url('org')).to eq 'http://foo.com:3000/classroom/#/org/' }
+
+          it { expect(fragmented.organic_url_for('org', 'path')).to eq 'http://foo.com:3000/classroom/#/org/path' }
+          it { expect(fragmented.organic_url_for('org', '/path')).to eq 'http://foo.com:3000/classroom/#/org/path' }
+          it { expect(fragmented.organic_url_for('org', 'path/other')).to eq 'http://foo.com:3000/classroom/#/org/path/other' }
+        end
+
         context 'with fragment-path' do
           let(:fragmented) { Mumukit::Platform::Application::Organic.new('http://foo.com:3000/#/classroom/', mapping) }
 
