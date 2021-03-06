@@ -8,13 +8,15 @@ class URI::HTTP
     rebuild({host: new_host}, **options)
   end
 
-  def tenantize(route, **options)
-    if path.end_with? '/'
+  def tenantize(route, fragmented: false)
+    if fragmented && fragment
+      new_path = route
+    elsif path.end_with? '/'
       new_path = "#{path}#{route}/"
     else
       new_path = "#{path}/#{route}/"
     end
-    rebuild({path: new_path}, **options)
+    rebuild({path: new_path}, fragmented: fragmented)
   end
 
   def rebuild(updates, fragmented: false)
