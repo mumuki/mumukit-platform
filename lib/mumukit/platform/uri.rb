@@ -11,10 +11,8 @@ class URI::HTTP
   def tenantize(route, fragmented: false)
     if fragmented && fragment
       new_path = route
-    elsif path.end_with? '/'
-      new_path = "#{path}#{route}/"
     else
-      new_path = "#{path}/#{route}/"
+      new_path = "#{path.chomp('/')}/#{route}/"
     end
     rebuild({path: new_path}, fragmented: fragmented)
   end
