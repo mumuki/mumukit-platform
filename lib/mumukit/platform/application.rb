@@ -27,16 +27,10 @@ class Mumukit::Platform::Application
     uri.url_for(path) if path
   end
 
+  # warning: this code is tightly coupled to the fact that
+  # applications can only rebuild urls in fragmented-mode
   def organic_url_for(organization, path)
-    uri = organic_uri(organization)
-    # warning: this code is tightly
-    # coupled to the fact that applications can only rebuild urls
-    # in fragmented-mode
-    if uri.fragment
-      uri.to_s + relative_path(path)
-    else
-      uri.url_for(relative_path path)
-    end
+    organic_uri(organization).url_for(relative_path path)
   end
 
   def relative_path(path)
