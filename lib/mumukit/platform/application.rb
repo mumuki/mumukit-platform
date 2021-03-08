@@ -33,7 +33,7 @@ class Mumukit::Platform::Application
     # coupled to the fact that applications can only rebuild urls
     # in fragmented-mode
     if uri.fragment
-      uri.to_s + relative_path(path)
+      uri.to_s.chomp('/') + '/' + relative_path(path)
     else
       uri.url_for(relative_path path)
     end
