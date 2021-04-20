@@ -26,6 +26,10 @@ describe Mumukit::Platform::OrganizationMapping do
       it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'central').to be true }
     end
 
+    describe '#untenantize' do
+      it { expect(subject.untenantize('/a_route/nested/deep')).to eq '/a_route/nested/deep' }
+    end
+
     context 'on non central' do
       let(:request) { new_rack_request 'http', 'foo.something.com', '80', '/bar/other' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
@@ -55,6 +59,11 @@ describe Mumukit::Platform::OrganizationMapping do
       it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'central').to be false }
       it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'bar').to be false }
       it { expect(subject.path_under_namespace? 'central', '/central/foo/bar', 'baz').to be false }
+    end
+
+    describe '#untenantize' do
+      it { expect(subject.untenantize('/orga/a_route/nested/deep')).to eq 'a_route/nested/deep' }
+      it { expect(subject.untenantize('/orga')).to eq '' }
     end
 
     context 'on non central' do
