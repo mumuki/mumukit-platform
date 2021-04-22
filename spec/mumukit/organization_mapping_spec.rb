@@ -33,20 +33,17 @@ describe Mumukit::Platform::OrganizationMapping do
     context 'on non central' do
       let(:request) { new_rack_request 'http', 'foo.something.com', '80', '/bar/other' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
-      it { expect(subject.inorganic_path_for(request)).to eq '/bar/other' }
     end
 
     context 'on explicit central' do
       let(:request) { new_rack_request 'http', 'central.something.com', '80', '/bar/res' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'central' }
-      it { expect(subject.inorganic_path_for(request)).to eq '/bar/res' }
       it { expect(subject.implicit_organization?(request, 'something.com')).to be false }
     end
 
     context 'on implicit central' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/bar/other' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'central' }
-      it { expect(subject.inorganic_path_for(request)).to eq '/bar/other' }
       it { expect(subject.implicit_organization?(request, 'something.com')).to be true }
     end
   end
@@ -69,30 +66,25 @@ describe Mumukit::Platform::OrganizationMapping do
     context 'on non central' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/foo' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
-      it { expect(subject.inorganic_path_for(request)).to eq '' }
     end
 
     context 'on non central with extra path' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/foo/bar' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
-      it { expect(subject.inorganic_path_for(request)).to eq 'bar' }
     end
 
     context 'on non central with extra path and params' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/foo/bar/other?param=val' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'foo' }
-      it { expect(subject.inorganic_path_for(request)).to eq 'bar/other?param=val' }
     end
 
     context 'on non central with trailing slash' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/foo/' }
-      it { expect(subject.inorganic_path_for(request)).to eq '' }
     end
 
     context 'on central' do
       let(:request) { new_rack_request 'http', 'something.com', '80', '/central/' }
       it { expect(subject.organization_name(request, 'something.com')).to eq 'central' }
-      it { expect(subject.inorganic_path_for(request)).to eq '' }
     end
   end
 end

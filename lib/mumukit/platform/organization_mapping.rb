@@ -52,10 +52,6 @@ module Mumukit::Platform::OrganizationMapping
     def self.path_under_namespace?(_organization_name, path, namespace)
       path.start_with? "/#{namespace}/"
     end
-
-    def self.inorganic_path_for(request)
-      path_for(request)
-    end
   end
 
   module Path
@@ -76,10 +72,6 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.organization_name(request, _domain)
       path_composition_for(path_for(request)).first
-    end
-
-    def self.inorganic_path_for(request)
-      untenantize path_for(request)
     end
 
     def self.organic_uri(uri, organization)
