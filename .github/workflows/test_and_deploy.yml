@@ -14,8 +14,7 @@ jobs:
       with:
         ruby-version: 2.6.3
         bundler: 2.1.4
-    - name: Install dependencies
-      run: bundle install
+        bundler-cache: true
     - name: Run tests
       run: bundle exec rake
     - name: Deploy
