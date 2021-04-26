@@ -47,6 +47,10 @@ class Mumukit::Platform::Application
     def organic_uri(_organization)
       uri
     end
+
+    def retenantize_in(organization, tenantized_path)
+      organic_url_for(organization, tenantized_path)
+    end
   end
 
   class Organic < Mumukit::Platform::Application
@@ -55,6 +59,11 @@ class Mumukit::Platform::Application
     def initialize(url, organization_mapping)
       super(url)
       @organization_mapping = organization_mapping
+    end
+
+    def retenantize_in(organization, tenantized_path)
+      untenantized_path = organization_mapping.untenantize(tenantized_path)
+      organic_url_for(organization, untenantized_path)
     end
 
     def organic_uri(organization)

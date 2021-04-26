@@ -24,6 +24,10 @@ module Mumukit::Platform::OrganizationMapping
     def path_for(request)
       request.path_info
     end
+
+    def untenantize(path)
+      path
+    end
   end
 
   module Subdomain
@@ -48,10 +52,6 @@ module Mumukit::Platform::OrganizationMapping
     def self.path_under_namespace?(_organization_name, path, namespace)
       path.start_with? "/#{namespace}/"
     end
-
-    def self.inorganic_path_for(request)
-      path_for(request)
-    end
   end
 
   module Path
@@ -65,17 +65,13 @@ module Mumukit::Platform::OrganizationMapping
       framework.configure_tenant_path_routes! native, &block
     end
 
-    def self.path_composition_for(request)
-      organization, *path_parts = Pathname(path_for(request)).each_filename.to_a
+    def self.path_composition_for(path)
+      organization, *path_parts = Pathname(path).each_filename.to_a
       [organization, path_parts.join('/')]
     end
 
     def self.organization_name(request, _domain)
-      path_composition_for(request).first
-    end
-
-    def self.inorganic_path_for(request)
-      path_composition_for(request).second
+      path_composition_for(path_for(request)).first
     end
 
     def self.organic_uri(uri, organization)
@@ -84,6 +80,10 @@ module Mumukit::Platform::OrganizationMapping
 
     def self.path_under_namespace?(organization_name, path, namespace)
       path.start_with? "/#{organization_name}/#{namespace}/"
+    end
+
+    def self.untenantize(path)
+      path_composition_for(path).second
     end
   end
 end
