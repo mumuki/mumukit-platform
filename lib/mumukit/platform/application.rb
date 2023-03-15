@@ -50,15 +50,12 @@ class Mumukit::Platform::Application
   end
 
   class Organic < Mumukit::Platform::Application
-    attr_reader :organization_mapping
-
-    def initialize(url, organization_mapping)
+    def initialize(url)
       super(url)
-      @organization_mapping = organization_mapping
     end
 
     def organic_uri(organization)
-      organization_mapping.organic_uri(uri, organization)
+      Mumukit::Platform::PathMapping.organic_uri(uri, organization)
     end
   end
 end

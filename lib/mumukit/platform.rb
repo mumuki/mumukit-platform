@@ -21,7 +21,6 @@ module Mumukit::Platform
       config.bibliotheca_api_url = ENV['MUMUKI_BIBLIOTHECA_API_URL'] || "http://bibliotheca-api.#{domain}"
       config.classroom_ui_url = ENV['MUMUKI_CLASSROOM_UI_URL'] || "http://classroom.#{domain}/#/"
       config.classroom_api_url = ENV['MUMUKI_CLASSROOM_API_URL'] || "http://classroom-api.#{domain}"
-      config.organization_mapping = Mumukit::Platform::OrganizationMapping.from_env
     end
   end
 
@@ -61,19 +60,19 @@ require_relative './platform/locale'
 require_relative './platform/course'
 require_relative './platform/organization'
 require_relative './platform/user'
-require_relative './platform/organization_mapping'
+require_relative './platform/path_mapping'
 require_relative './platform/application'
 require_relative './platform/web_framework'
 require_relative './platform/bridge'
 
 require_relative './platform/with_organization'
 require_relative './platform/with_applications'
-require_relative './platform/with_organization_mapping'
+require_relative './platform/with_path_mapping'
 require_relative './platform/with_web_framework'
 
 module Mumukit::Platform
   extend Mumukit::Platform::WithApplications
   extend Mumukit::Platform::WithOrganization
-  extend Mumukit::Platform::WithOrganizationMapping
+  extend Mumukit::Platform::WithPathMapping
   extend Mumukit::Platform::WithWebFramework
 end
