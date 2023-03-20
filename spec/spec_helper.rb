@@ -1,5 +1,7 @@
 ENV['RACK_ENV'] = 'test'
 
+Warning[:deprecated] = true
+
 require 'bundler/setup'
 require 'mumukit/platform'
 require 'mumukit/core/rspec'
