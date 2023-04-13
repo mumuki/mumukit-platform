@@ -22,13 +22,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'mumukit-nuntius', '~> 6.0'
-  spec.add_dependency 'mumukit-core', '~> 1.19'
+  spec.add_dependency 'mumukit-core', '~> 1.20'
   spec.add_dependency 'mumukit-auth', '~> 7.6'
   spec.add_dependency 'mumukit-bridge', '~> 4.2'
-  spec.add_dependency 'activemodel', '>= 6.0'
+  spec.add_dependency 'activemodel', '>= 6.0', '< 8'
 
   spec.add_development_dependency 'bundler', '>= 1.7', '< 3'
-  spec.add_development_dependency 'rake', '~> 12.3'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
 
   spec.required_ruby_version = '>= 3.0'
